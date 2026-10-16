@@ -4,139 +4,347 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>🎯 靶心人公式 - 我的升學故事學習單產生器</title>
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome Icons CDN -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
-    body { background-color: #f0f4f9; font-family: system-ui, -apple-system, sans-serif; }
-    .gemini-card { background: #ffffff; border-radius: 1.5rem; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03); }
+    body {
+      background-color: #f0f4f9;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+    .gemini-card {
+      background: #ffffff;
+      border-radius: 1.5rem;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: 3px;
+    }
   </style>
 </head>
 <body class="min-h-screen p-4 md:p-8 text-slate-800">
 
+  <!-- Gemini Header Bar -->
   <header class="max-w-5xl mx-auto mb-6 flex justify-between items-center px-2">
     <div class="flex items-center gap-2 text-xl font-bold text-slate-700">
-      <span class="text-blue-600">✨ Gemini Story Generator</span>
+      <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" fill="url(#gemini-grad)"/>
+        <defs>
+          <linearGradient id="gemini-grad" x1="0" y1="0" x2="24" y2="24" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#4285F4"/>
+            <stop offset="50%" stop-color="#9B51E0"/>
+            <stop offset="100%" stop-color="#E91E63"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      <span>Gemini Story Generator</span>
     </div>
 
+    <!-- 進階 API 設定 -->
     <details class="relative">
-      <summary class="cursor-pointer bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-600 border border-slate-200 shadow-sm list-none">
-        ⚙️ 進階 AI 設定
+      <summary class="cursor-pointer bg-white px-3 py-1.5 rounded-full text-xs font-medium text-slate-600 border border-slate-200 shadow-sm hover:bg-slate-50 list-none flex items-center gap-1.5">
+        <i class="fa-solid fa-gear text-slate-400"></i>
+        <span>進階 AI 設定</span>
       </summary>
       <div class="absolute right-0 mt-2 w-80 bg-white rounded-2xl shadow-xl p-4 border border-slate-100 z-50">
         <label class="block text-xs font-bold text-slate-700 mb-1">Gemini API Key：</label>
         <input type="password" id="apiKeyInput" placeholder="請貼上 AQ.Ab... 或 AIzaSy... 金鑰" class="w-full text-xs p-2.5 rounded-lg border border-slate-200 font-mono mb-2">
-        <p class="text-[11px] text-slate-400">💡 已更新支援 Google 最新 gemini-3.8-flash 模型！</p>
+        <p class="text-[11px] text-slate-400 leading-normal">
+          💡 已自動適應支援 Google 最新 `gemini-3.8-flash` 官方模型！
+        </p>
       </div>
     </details>
   </header>
 
+  <!-- Main Container -->
   <main class="max-w-5xl mx-auto gemini-card p-6 md:p-10 mb-10">
     <div class="text-center mb-8">
-      <h1 class="text-2xl md:text-3xl font-extrabold text-slate-800 mb-2">🎯 靶心人公式 - 會考逆襲故事產生器</h1>
-      <p class="text-slate-500 text-sm">輸入步驟 1~3，由 AI 為您即時推演 4~7 步驟故事與繪圖提示詞。</p>
+      <h1 class="text-2xl md:text-3xl font-extrabold text-slate-800 tracking-tight mb-2">
+        🎯 靶心人公式 - 我的升學故事學習單產生器
+      </h1>
+      <p class="text-slate-500 text-sm md:text-base">
+        輸入您的想法，讓 AI 協助您建構前後邏輯貫通的國三會考/模考逆襲故事與學習單。
+      </p>
     </div>
 
-    <div class="flex justify-center gap-3 mb-8">
-      <button id="aiBtn" onclick="triggerAIGeneration()" class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-6 py-2.5 rounded-xl text-sm shadow-sm transition flex items-center gap-2">
+    <!-- Action Buttons -->
+    <div class="flex flex-wrap items-center justify-center gap-3 mb-8">
+      <button id="aiBtn" onclick="triggerAIGeneration()" class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-5 py-2.5 rounded-xl text-sm shadow-sm transition flex items-center gap-2">
+        <i class="fa-solid fa-wand-magic-sparkles text-amber-300"></i>
         <span id="aiBtnText">✨ AI 智慧推演與生成</span>
       </button>
-      <button onclick="clearAllFields()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-medium px-4 py-2.5 rounded-xl text-sm">🧹 清除</button>
+      <button onclick="loadBiriGyalPreset()" class="bg-amber-500 hover:bg-amber-600 text-white font-medium px-5 py-2.5 rounded-xl text-sm shadow-sm transition flex items-center gap-2">
+        <i class="fa-solid fa-book"></i>
+        <span>📙 墊底辣妹範例</span>
+      </button>
+      <button onclick="unlockAttachments()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-medium px-5 py-2.5 rounded-xl text-sm shadow-sm transition flex items-center gap-2">
+        <i class="fa-solid fa-paper-plane"></i>
+        <span>🚀 產生試算表與學習單</span>
+      </button>
+      <button onclick="clearAllFields()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-medium px-4 py-2.5 rounded-xl text-sm transition flex items-center gap-2">
+        <i class="fa-solid fa-rotate-right"></i>
+        <span>🧹 清除</span>
+      </button>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8" id="stepsContainer"></div>
+    <!-- 7 Step Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8" id="stepsContainer">
+      <!-- JS 動態渲染卡片 -->
+    </div>
   </main>
 
+  <!-- Attachment Section -->
   <section id="attachmentSection" class="max-w-5xl mx-auto space-y-8 hidden mb-12">
-    <!-- Story Result Box -->
+    <!-- 1. Google Sheets Preview & Launcher -->
     <div class="gemini-card p-6 md:p-8">
-      <div class="flex items-center justify-between mb-4">
-        <h2 class="text-lg font-bold text-slate-800">📖 備審亮點自述 - AI 7步驟全文故事</h2>
-        <button onclick="copyText('fullStoryText')" class="text-xs bg-slate-100 px-3 py-1.5 rounded-lg">📋 複製全文</button>
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+        <div>
+          <h2 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+            <i class="fa-solid fa-table text-emerald-600"></i>
+            <span>彩虹情緒試算表預覽</span>
+          </h2>
+          <p class="text-xs text-slate-500">已成功生成 7 步驟事件、感受與情緒帶狀區塊標記</p>
+        </div>
+        <button onclick="openGoogleSheetsWindow()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-medium px-5 py-2.5 rounded-xl text-sm shadow-sm transition flex items-center gap-2">
+          <i class="fa-solid fa-file-excel"></i>
+          <span>📊 一鍵生成 Google 試算表（另開分頁呈現）</span>
+        </button>
       </div>
-      <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200">
-        <h3 id="storyTitle" class="text-base font-bold text-slate-800 mb-2 pb-2 border-b"></h3>
-        <div id="fullStoryText" class="text-sm text-slate-700 leading-relaxed font-serif whitespace-pre-line"></div>
+
+      <div class="overflow-x-auto rounded-xl border border-slate-200 custom-scrollbar">
+        <table class="w-full text-left text-xs border-collapse">
+          <thead>
+            <tr class="bg-emerald-800 text-white font-bold">
+              <th class="p-3 w-24 border-r border-emerald-700">步驟</th>
+              <th class="p-3 w-48 border-r border-emerald-700">關鍵事件</th>
+              <th class="p-3 w-48 border-r border-emerald-700">內心感受</th>
+              <th class="p-3 text-center border-r border-emerald-700" style="background:#059669;">+3<br><span class="text-[9px]">狂喜</span></th>
+              <th class="p-3 text-center border-r border-emerald-700" style="background:#10b981;">+2<br><span class="text-[9px]">期待</span></th>
+              <th class="p-3 text-center border-r border-emerald-700" style="background:#34d399;">+1<br><span class="text-[9px]">希望</span></th>
+              <th class="p-3 text-center border-r border-emerald-700" style="background:#9ca3af;">0<br><span class="text-[9px]">平靜</span></th>
+              <th class="p-3 text-center border-r border-emerald-700" style="background:#f87171;">-1<br><span class="text-[9px]">不安</span></th>
+              <th class="p-3 text-center border-r border-emerald-700" style="background:#ef4444;">-2<br><span class="text-[9px]">沮喪</span></th>
+              <th class="p-3 text-center" style="background:#dc2626;">-3<br><span class="text-[9px]">崩潰</span></th>
+            </tr>
+          </thead>
+          <tbody id="rainbowGridBody" class="divide-y divide-slate-200 bg-white"></tbody>
+        </table>
       </div>
     </div>
 
-    <!-- AI Prompt Box -->
+    <!-- 2. Full Story Narrative Box -->
     <div class="gemini-card p-6 md:p-8">
       <div class="flex items-center justify-between mb-4">
-        <h2 class="text-lg font-bold text-slate-800">🎨 寫實風格 AI 繪圖提示詞 (Photorealistic Prompt)</h2>
-        <button onclick="copyText('promptText')" class="text-xs bg-slate-100 px-3 py-1.5 rounded-lg">📋 複製 Prompt</button>
+        <h2 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+          <i class="fa-solid fa-book-open text-blue-600"></i>
+          <span>備審亮點自述 - 7步驟連貫升學故事</span>
+        </h2>
+        <button onclick="copyToClipboard('fullStoryText')" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-600 font-medium px-3.5 py-2 rounded-xl transition flex items-center gap-1.5 shadow-sm">
+          <i class="fa-regular fa-copy"></i>
+          <span>複製故事全文</span>
+        </button>
       </div>
-      <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-2">
-        <div id="promptText" class="font-mono text-xs text-blue-600 bg-white p-3 rounded-xl border"></div>
-        <p id="promptTranslation" class="text-xs text-slate-500 italic"></p>
+      <div class="bg-slate-50/70 p-6 rounded-2xl border border-slate-200/80">
+        <h3 id="storyTitle" class="text-base font-bold text-slate-800 mb-3 border-b border-slate-200 pb-2">《備審亮點故事》</h3>
+        <div id="fullStoryText" class="text-sm text-slate-700 leading-relaxed whitespace-pre-line font-serif"></div>
+      </div>
+    </div>
+
+    <!-- 3. AI Photorealistic Prompt Box -->
+    <div class="gemini-card p-6 md:p-8 space-y-4">
+      <div class="flex items-center justify-between">
+        <h2 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+          <span class="text-xl">🎨</span>
+          <span>寫實風格 AI 繪圖提示詞 (Photorealistic Prompt) 與建議</span>
+        </h2>
+        <button onclick="copyToClipboard('promptText')" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-600 font-medium px-3.5 py-2 rounded-xl transition flex items-center gap-1.5 shadow-sm">
+          <i class="fa-regular fa-copy"></i>
+          <span>複製 Prompt</span>
+        </button>
+      </div>
+
+      <!-- Prompt Text Box -->
+      <div class="bg-slate-50/80 p-5 rounded-2xl border border-slate-200/80 space-y-3">
+        <div id="promptText" class="font-mono text-xs text-blue-600 leading-relaxed bg-white p-4 rounded-xl border border-slate-200/60 shadow-inner">
+          A cinematic photorealistic portrait of a Taiwanese high school student celebrating outside a noticeboard, joyfully crying with tears of victory, holding an official acceptance letter from their target school, hugging parents and teacher warmly under golden hour lighting, 8k, shallow depth of field.
+        </div>
+        <p id="promptTranslation" class="text-xs text-slate-500 italic">
+          (寫實照片風格。畫面呈現：夕陽光影下的校園中，學生眼眶泛淚舉著目標學校錄取通知書，與溫暖陪伴的父母及老師擁抱。電影級質感，8K 高畫質。)
+        </p>
+      </div>
+
+      <!-- Character Reference Tip Box -->
+      <div class="bg-amber-50/80 border border-amber-200/80 p-4 rounded-2xl flex items-start gap-3">
+        <span class="text-lg">💡</span>
+        <div class="text-xs text-amber-900 leading-relaxed">
+          <strong>給學生的寫實繪圖建議（建議附上個人照 Character Reference）：</strong><br>
+          在將以上提示詞貼入 Midjourney、Leonardo.ai 或 SeaArt 等繪圖工具前，建議先上傳一張您的正面清晰個人照，並啟用 <strong>「Character Reference (角色參考)」</strong> 功能（強度設 0.6~0.7），生成出的結局圖就會是包含您自己臉龐的專屬寫實勵志照片！
+        </div>
       </div>
     </div>
   </section>
 
   <script>
     const stepsData = [
-      { id: 1, name: "1. 目標 (Goal)", pE: "例：考上第一志願高雄中學", pF: "例：熱血期待，充滿決心" },
-      { id: 2, name: "2. 阻礙 (Obstacle)", pE: "例：數學理化成績墊底常被嘲笑", pF: "例：沮喪挫折，壓力巨大" },
-      { id: 3, name: "3. 努力 (Effort)", pE: "例：刪除手遊，天天早起刷錯題本", pF: "例：踏實專注，一步一腳印" },
-      { id: 4, name: "4. 結果 (Result)", pE: "AI 推演中...", pF: "AI 推演中..." },
-      { id: 5, name: "5. 意外 (Accident)", pE: "AI 推演中...", pF: "AI 推演中..." },
-      { id: 6, name: "6. 轉彎 (Twist)", pE: "AI 推演中...", pF: "AI 推演中..." },
-      { id: 7, name: "7. 結局 (Ending)", pE: "AI 推演中...", pF: "AI 推演中..." }
+      { id: 1, name: "1. 目標 (Goal)", isReq: true, pE: "例如：考上第一志願高雄中學、英文拿到 A++", pF: "例如：熱血期待，心中充滿證明自己的決心", defS: "3" },
+      { id: 2, name: "2. 阻礙 (Obstacle)", isReq: true, pE: "例如：數學與理化成績墊底，常被同學嘲笑", pF: "例如：沮喪挫折，深深體會到課業壓力", defS: "-2" },
+      { id: 3, name: "3. 努力 (Effort)", isReq: true, pE: "例如：刪除手機遊戲，每天早起 30 分鐘刷題背單字", pF: "例如：踏實專注，一步一腳印積累實力", defS: "1" },
+      { id: 4, name: "4. 結果 (Result)", isReq: false, pE: "例如：模擬考成績獲得顯著突破，順利邁向前段班！", pF: "例如：振奮狂喜，重新建立起信心。", defS: "2" },
+      { id: 5, name: "5. 意外 (Accident)", isReq: false, pE: "例如：會考前夕模擬考突遇題型變化大幅失常滑鐵盧。", pF: "例如：崩潰絕望，極度焦慮與不安。", defS: "-3" },
+      { id: 6, name: "6. 轉彎 (Twist)", isReq: false, pE: "例如：在家人溫暖陪伴與老師真摯鼓勵下重整旗鼓。", pF: "例如：重獲力量，找回沉著平靜的心態。", defS: "1" },
+      { id: 7, name: "7. 結局 (Ending)", isReq: false, pE: "例如：會考放榜成功逆襲錄取第一志願目標！", pF: "例如：感動落淚，充滿狂喜與自我肯定。", defS: "3" }
+    ];
+
+    const emotionOptions = [
+      { v: "3", t: "3 (狂喜/自信)" },
+      { v: "2", t: "2 (期待/振奮)" },
+      { v: "1", t: "1 (希望/踏實)" },
+      { v: "0", t: "0 (平靜/沉著)" },
+      { v: "-1", t: "-1 (不安/焦慮)" },
+      { v: "-2", t: "-2 (沮喪/挫折)" },
+      { v: "-3", t: "-3 (崩潰/絕望)" }
     ];
 
     function renderCards() {
-      document.getElementById('stepsContainer').innerHTML = stepsData.map(s => `
-        <div class="bg-white rounded-2xl p-5 border border-slate-200">
-          <h3 class="font-bold text-slate-800 text-sm mb-3">${s.name}</h3>
-          <textarea id="event_${s.id}" rows="2" placeholder="${s.pE}" class="w-full p-2.5 text-xs bg-slate-50 rounded-xl border mb-2 resize-none"></textarea>
-          <input id="feeling_${s.id}" type="text" placeholder="${s.pF}" class="w-full p-2.5 text-xs bg-slate-50 rounded-xl border">
+      const container = document.getElementById('stepsContainer');
+      container.innerHTML = stepsData.map(s => `
+        <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm relative">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="font-bold text-slate-800 text-sm md:text-base">${s.name}</h3>${s.isReq ? '<span class="text-[11px] bg-blue-100 text-blue-600 font-medium px-2.5 py-0.5 rounded-md">必填</span>' : '<span class="text-[11px] bg-slate-100 text-slate-500 font-medium px-2.5 py-0.5 rounded-md">AI推演</span>'}
+          </div>
+
+          <div class="space-y-3">
+            <textarea id="event_${s.id}" rows="2" placeholder="${s.pE}" class="w-full p-3 text-xs bg-slate-50/50 rounded-xl border border-slate-200/80 focus:outline-none focus:border-blue-500 transition resize-none custom-scrollbar" oninput="limitSentences(this)"></textarea>
+
+            <div class="flex gap-2">
+              <input id="feeling_${s.id}" type="text" placeholder="${s.pF}" class="w-2/3 p-2.5 text-xs bg-slate-50/50 rounded-xl border border-slate-200/80 focus:outline-none focus:border-blue-500 transition" oninput="limitSentences(this)">
+              <select id="scale_${s.id}" class="w-1/3 p-2.5 text-xs bg-slate-50/50 rounded-xl border border-slate-200/80 focus:outline-none focus:border-blue-500 font-medium text-slate-700">
+                ${emotionOptions.map(o => `<option value="${o.v}" ${o.v === s.defS ? 'selected' : ''}>${o.t}</option>`).join('')}
+              </select>
+            </div>
+          </div>
         </div>
       `).join('');
     }
 
+    function limitSentences(el) {
+      const sentences = el.value.split(/(?<=[。！？!?\n])/).filter(s => s.trim().length > 0);
+      if (sentences.length > 3) el.value = sentences.slice(0, 3).join('');
+    }
+
+    function loadBiriGyalPreset() {
+      const data = [
+        { id: 1, e: "在補習班坪田老師建議下，立下考上慶應義塾大學的目標。", f: "熱血期待，心中充滿證明自己的決心與對未來的憧憬。", s: "3" },
+        { id: 2, e: "高中成績墊底、偏差值僅 30，被班導師嘲笑完全不被看好。", f: "沮喪自卑，深刻體會到被外界看輕的挫折與不甘心。", s: "-2" },
+        { id: 3, e: "剪短長髮、戒掉手遊與社交，每天在補習班苦讀至深夜。", f: "踏實專注，全力以赴學習。", s: "1" },
+        { id: 4, e: "經過半年苦讀，模擬考成績大幅進步衝到前段班！", f: "振奮狂喜，重新建立起信心。", s: "2" },
+        { id: 5, e: "大考前夕模擬考重挫跌回 E 判定谷底，加上壓力過大身體不適。", f: "崩潰絕望，懷疑所有努力都是徒勞。", s: "-3" },
+        { id: 6, e: "媽媽溫暖陪伴與坪田老師信件鼓勵「有志者事竟成」，重新調整心態。", f: "獲得力量，找回平靜沉著與自信。", s: "1" },
+        { id: 7, e: "放榜當天喜獲慶應大學錄取通知！當初嘲笑我若考上就倒立裸體繞操場的班導師甘服敗北，我與媽媽、老師擁抱落淚大喊我做到了！", f: "感動落淚，充滿狂喜與自我肯定。", s: "3" }
+      ];
+
+      data.forEach(item => {
+        document.getElementById(`event_${item.id}`).value = item.e;
+        document.getElementById(`feeling_${item.id}`).value = item.f;
+        document.getElementById(`scale_${item.id}`).value = item.s;
+      });
+
+      unlockAttachments(true);
+    }
+
+    function clearAllFields() {
+      for (let i = 1; i <= 7; i++) {
+        document.getElementById(`event_${i}`).value = '';
+        document.getElementById(`feeling_${i}`).value = '';
+        document.getElementById(`scale_${i}`).value = '0';
+      }
+      document.getElementById('attachmentSection').classList.add('hidden');
+    }
+
     async function triggerAIGeneration() {
+      for (let i = 1; i <= 3; i++) {
+        const e = document.getElementById(`event_${i}`).value.trim();
+        const f = document.getElementById(`feeling_${i}`).value.trim();
+        if (!e || !f) {
+          alert(`請先完成步驟 ${i} 的「關鍵事件」與「內心感受」！`);
+          return;
+        }
+      }
+
       const apiKey = document.getElementById('apiKeyInput').value.trim();
       if (!apiKey) {
         alert("請先點開右上角「進階 AI 設定」貼上您的 Gemini API Key！");
         return;
       }
 
-      const e1 = document.getElementById('event_1').value.trim();
-      const e2 = document.getElementById('event_2').value.trim();
-      const e3 = document.getElementById('event_3').value.trim();
-      if (!e1 || !e2 || !e3) {
-        alert("請先填寫步驟 1、2、3 的內容！");
-        return;
-      }
-
+      const btn = document.getElementById('aiBtn');
       const btnText = document.getElementById('aiBtnText');
+      btn.disabled = true;
       btnText.innerText = "🤖 Gemini AI 正在即時創作故事中...";
 
-      const prompt = `你是一位專業故事家。請根據以下學生的逆襲素材：
-目標：${e1}
-阻礙：${e2}
-努力：${e3}
+      try {
+        await generateWithGemini(apiKey);
+      } catch (err) {
+        console.error("Gemini API Error Detail:", err);
+        alert(`❌ 連線失敗，請確認 API Key 是否正確：\n${err.message}`);
+      } finally {
+        btn.disabled = false;
+        btnText.innerText = "✨ AI 智慧推演與生成";
+      }
+    }
 
-請創作連貫的 4~7 步驟故事，並生成備審文章與 AI 繪圖提示詞。
-請務必回傳標準 JSON 格式（切勿包含 Markdown 或 \`\`\`json 標記）：
+    // 真實 Gemini API 呼叫（支援最新 gemini-3.8-flash 與 gemini-2.5-flash）
+    async function generateWithGemini(apiKey) {
+      const e1 = document.getElementById('event_1').value;
+      const f1 = document.getElementById('feeling_1').value;
+      const e2 = document.getElementById('event_2').value;
+      const f2 = document.getElementById('feeling_2').value;
+      const e3 = document.getElementById('event_3').value;
+      const f3 = document.getElementById('feeling_3').value;
+
+      const prompt = `你是一位資深的國中升學輔導專家與勵志故事作家。
+請根據學生輸入的靶心人公式 1~3 步驟：
+- 步驟1(目標): ${e1} (感受: ${f1})
+- 步驟2(阻礙): ${e2} (感受: ${f2})
+- 步驟3(努力): ${e3} (感受: ${f3})
+
+請為他客製化動態推演 4~7 步驟，並撰寫完整的備審自述故事與AI繪圖提示詞。
+
+要求：
+1. 步驟 4(結果)、5(意外/挫折)、6(轉彎/重整)、7(結局) 必須緊扣學生的特定目標、科目與努力做法，用語極具情感與勵志感。
+2. scale 為 -3 到 +3 的情緒指數數字字串。
+3. story_title: 為此逆襲故事取一個感人且吸睛的標題。
+4. full_story: 將 1~7 步驟融合貫通成一篇段落流暢、真摯動人的國三升學勵志故事全文。
+5. image_prompt_en: 根據結局畫面寫一段高質感的電影級 Midjourney 英文 Photorealistic AI 繪圖 Prompt。
+6. image_prompt_zh: 上述英文 Prompt 的中文翻譯。
+
+請務必僅輸出標準 JSON 格式（切勿包含 Markdown 或 \`\`\`json 標記）：
 {
-  "step4_event": "...", "step4_feeling": "...",
-  "step5_event": "...", "step5_feeling": "...",
-  "step6_event": "...", "step6_feeling": "...",
-  "step7_event": "...", "step7_feeling": "...",
-  "title": "《...》",
-  "full_story": "全文約 300 字...",
-  "prompt_en": "A photorealistic portrait of...",
-  "prompt_zh": "(寫實照片風格...)"
+  "steps": [
+    {"id": 4, "event": "...", "feeling": "...", "scale": "2"},
+    {"id": 5, "event": "...", "feeling": "...", "scale": "-3"},
+    {"id": 6, "event": "...", "feeling": "...", "scale": "1"},
+    {"id": 7, "event": "...", "feeling": "...", "scale": "3"}
+  ],
+  "story_title": "...",
+  "full_story": "...",
+  "image_prompt_en": "...",
+  "image_prompt_zh": "..."
 }`;
 
-      // 優先使用 Google 官方指定最新 gemini-3.8-flash 模型，並提供 gemini-2.5-flash 作為備援
+      const cleanedKey = apiKey.trim();
       const candidateModels = ['gemini-3.8-flash', 'gemini-2.5-flash'];
       let lastError = '';
       let success = false;
 
       for (const model of candidateModels) {
         try {
-          const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`, {
+          const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${cleanedKey}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
@@ -144,30 +352,36 @@
 
           const data = await res.json();
           if (!res.ok) {
-            lastError = data.error?.message || `模型 ${model} 連線失敗`;
+            lastError = data.error?.message || `[Google API ${res.status}] 連線失敗`;
             continue;
           }
 
-          const text = data.candidates[0].content.parts[0].text;
-          const cleanJson = text.replace(/```json/g, '').replace(/```/g, '').trim();
-          const json = JSON.parse(cleanJson);
+          const rawText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+          if (!rawText) continue;
 
-          document.getElementById('event_4').value = json.step4_event;
-          document.getElementById('feeling_4').value = json.step4_feeling;
-          document.getElementById('event_5').value = json.step5_event;
-          document.getElementById('feeling_5').value = json.step5_feeling;
-          document.getElementById('event_6').value = json.step6_event;
-          document.getElementById('feeling_6').value = json.step6_feeling;
-          document.getElementById('event_7').value = json.step7_event;
-          document.getElementById('feeling_7').value = json.step7_feeling;
+          const cleanJsonStr = rawText.replace(/```json/g, '').replace(/```/g, '').trim();
+          const jsonMatch = cleanJsonStr.match(/\{[\s\S]*\}/);
 
-          document.getElementById('storyTitle').innerText = json.title;
-          document.getElementById('fullStoryText').innerText = json.full_story;
-          document.getElementById('promptText').innerText = json.prompt_en;
-          document.getElementById('promptTranslation').innerText = json.prompt_zh;
+          if (!jsonMatch) continue;
 
-          document.getElementById('attachmentSection').classList.remove('hidden');
-          document.getElementById('attachmentSection').scrollIntoView({ behavior: 'smooth' });
+          const parsed = JSON.parse(jsonMatch[0]);
+
+          if (parsed.steps && Array.isArray(parsed.steps)) {
+            parsed.steps.forEach(s => {
+              if (document.getElementById(`event_${s.id}`)) {
+                document.getElementById(`event_${s.id}`).value = s.event;
+                document.getElementById(`feeling_${s.id}`).value = s.feeling;
+                document.getElementById(`scale_${s.id}`).value = s.scale;
+              }
+            });
+          }
+
+          if (parsed.story_title) document.getElementById('storyTitle').innerText = parsed.story_title;
+          if (parsed.full_story) document.getElementById('fullStoryText').innerText = parsed.full_story;
+          if (parsed.image_prompt_en) document.getElementById('promptText').innerText = parsed.image_prompt_en;
+          if (parsed.image_prompt_zh) document.getElementById('promptTranslation').innerText = parsed.image_prompt_zh;
+
+          unlockAttachments(true);
           alert(`✨ 成功連線 Gemini AI (${model})！故事與 Prompt 已動態生成完畢！`);
           success = true;
           break;
@@ -177,22 +391,122 @@
       }
 
       if (!success) {
-        alert("❌ 連線失敗：\n" + lastError);
+        throw new Error(lastError || "所有 Gemini API 模型連線均未回應");
       }
-
-      btnText.innerText = "✨ AI 智慧推演與生成";
     }
 
-    function clearAllFields() {
+    function unlockAttachments(isCustomCall = false) {
+      if (!isCustomCall) {
+        for (let i = 1; i <= 7; i++) {
+          if (!document.getElementById(`event_${i}`).value.trim()) {
+            alert(`步驟 ${i} 尚未完成！請先補齊內容或點擊「AI 智慧推演」。`);
+            return;
+          }
+        }
+      }
+
+      const tbody = document.getElementById('rainbowGridBody');
+      const scales = ["3", "2", "1", "0", "-1", "-2", "-3"];
+      tbody.innerHTML = '';
+
       for (let i = 1; i <= 7; i++) {
-        document.getElementById(`event_${i}`).value = '';
-        document.getElementById(`feeling_${i}`).value = '';
+        const e = document.getElementById(`event_${i}`).value;
+        const f = document.getElementById(`feeling_${i}`).value;
+        const s = document.getElementById(`scale_${i}`).value;
+
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td class="p-3 font-bold border-r border-slate-200">${stepsData[i-1].name.split(' ')[1]}</td>
+          <td class="p-3 border-r border-slate-200">${e}</td>
+          <td class="p-3 border-r border-slate-200">${f}</td>
+          ${scales.map(sc => `
+            <td class="p-3 text-center font-bold border-r border-slate-200 ${sc === s ? 'bg-emerald-500 text-white' : ''}">
+              ${sc === s ? '✓' : ''}
+            </td>
+          `).join('')}
+        `;
+        tbody.appendChild(tr);
       }
-      document.getElementById('attachmentSection').classList.add('hidden');
+
+      const sec = document.getElementById('attachmentSection');
+      sec.classList.remove('hidden');
+      sec.scrollIntoView({ behavior: 'smooth' });
     }
 
-    function copyText(id) {
-      navigator.clipboard.writeText(document.getElementById(id).innerText).then(() => alert("已複製！"));
+    function openGoogleSheetsWindow() {
+      const sheetsWindow = window.open('', '_blank');
+      let rowsHTML = '';
+      const scales = ["3", "2", "1", "0", "-1", "-2", "-3"];
+
+      for (let i = 1; i <= 7; i++) {
+        const e = document.getElementById(`event_${i}`).value;
+        const f = document.getElementById(`feeling_${i}`).value;
+        const s = document.getElementById(`scale_${i}`).value;
+
+        rowsHTML += `
+          <tr>
+            <td style="padding:10px; border:1px solid #ccc; font-weight:bold;">${stepsData[i-1].name}</td>
+            <td style="padding:10px; border:1px solid #ccc;">${e}</td>
+            <td style="padding:10px; border:1px solid #ccc;">${f}</td>
+            ${scales.map(sc => `
+              <td style="padding:10px; border:1px solid #ccc; text-align:center; font-weight:bold; background-color:${sc === s ? '#10b981' : '#ffffff'}; color:${sc === s ? '#ffffff' : '#000000'};">
+                ${sc === s ? '✓' : ''}
+              </td>
+            `).join('')}
+          </tr>
+        `;
+      }
+
+      sheetsWindow.document.write(`
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <title>Google 試算表 - 我的升學故事學習單</title>
+          <style>
+            body { font-family: Arial, sans-serif; margin: 20px; background-color: #f8fafc; }
+            .header { background-color: #0f766e; color: white; padding: 15px; font-size: 18px; font-weight: bold; border-radius: 6px 6px 0 0; display:flex; justify-content:space-between; align-items:center; }
+            table { width: 100%; border-collapse: collapse; background-color: white; }
+            th { background-color: #047857; color: white; padding: 10px; border: 1px solid #065f46; font-size: 12px; }
+            td { font-size: 13px; text-align: left; }
+            .btn-print { background: #ffffff; color: #0f766e; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-weight: bold; }
+          </style>
+        </head>
+        <body>
+          <div class="header">
+            <span>📊 我的升學故事學習單 - Google 試算表檢視版</span>
+            <button class="btn-print" onclick="window.print()">🖨️ 列印 / 匯出 PDF</button>
+          </div>
+          <table>
+            <thead>
+              <tr>
+                <th style="width:120px;">步驟</th>
+                <th>關鍵事件</th>
+                <th>內心感受</th>
+                <th style="background:#059669; text-align:center;">+3 狂喜</th>
+                <th style="background:#10b981; text-align:center;">+2 期待</th>
+                <th style="background:#34d399; text-align:center;">+1 希望</th>
+                <th style="background:#9ca3af; text-align:center;">0 平靜</th>
+                <th style="background:#f87171; text-align:center;">-1 不安</th>
+                <th style="background:#ef4444; text-align:center;">-2 沮喪</th>
+                <th style="background:#dc2626; text-align:center;">-3 崩潰</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${rowsHTML}
+            </tbody>
+          </table>
+        </body>
+        </html>
+      `);
+      sheetsWindow.document.close();
+    }
+
+    function copyToClipboard(id) {
+      const el = document.getElementById(id);
+      const text = el.innerText || el.textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        alert("已成功複製至剪貼簿！");
+      });
     }
 
     window.onload = renderCards;
