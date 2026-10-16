@@ -24,8 +24,8 @@
       </summary>
       <div class="absolute right-0 mt-2 w-80 bg-white rounded-2xl shadow-xl p-4 border border-slate-100 z-50">
         <label class="block text-xs font-bold text-slate-700 mb-1">Gemini API Key：</label>
-        <input type="password" id="apiKeyInput" placeholder="請貼上 AIzaSy... 或 AQ.Ab... 金鑰" class="w-full text-xs p-2.5 rounded-lg border border-slate-200 font-mono mb-2">
-        <p class="text-[11px] text-slate-400">💡 填入金鑰即可啟用真實 Gemini 2.0 大模型創作！</p>
+        <input type="password" id="apiKeyInput" placeholder="請貼上 AQ.Ab... 或 AIzaSy... 金鑰" class="w-full text-xs p-2.5 rounded-lg border border-slate-200 font-mono mb-2">
+        <p class="text-[11px] text-slate-400">💡 已更新支援 Google 最新 gemini-3.8-flash 模型！</p>
       </div>
     </details>
   </header>
@@ -129,42 +129,58 @@
   "prompt_zh": "(寫實照片風格...)"
 }`;
 
-      try {
-        const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
-        });
+      // 優先使用 Google 官方指定最新 gemini-3.8-flash 模型，並提供 gemini-2.5-flash 作為備援
+      const candidateModels = ['gemini-3.8-flash', 'gemini-2.5-flash'];
+      let lastError = '';
+      let success = false;
 
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.error?.message || "API 連線拒絕");
+      for (const model of candidateModels) {
+        try {
+          const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+          });
 
-        const text = data.candidates[0].content.parts[0].text;
-        const cleanJson = text.replace(/```json/g, '').replace(/```/g, '').trim();
-        const json = JSON.parse(cleanJson);
+          const data = await res.json();
+          if (!res.ok) {
+            lastError = data.error?.message || `模型 ${model} 連線失敗`;
+            continue;
+          }
 
-        document.getElementById('event_4').value = json.step4_event;
-        document.getElementById('feeling_4').value = json.step4_feeling;
-        document.getElementById('event_5').value = json.step5_event;
-        document.getElementById('feeling_5').value = json.step5_feeling;
-        document.getElementById('event_6').value = json.step6_event;
-        document.getElementById('feeling_6').value = json.step6_feeling;
-        document.getElementById('event_7').value = json.step7_event;
-        document.getElementById('feeling_7').value = json.step7_feeling;
+          const text = data.candidates[0].content.parts[0].text;
+          const cleanJson = text.replace(/```json/g, '').replace(/```/g, '').trim();
+          const json = JSON.parse(cleanJson);
 
-        document.getElementById('storyTitle').innerText = json.title;
-        document.getElementById('fullStoryText').innerText = json.full_story;
-        document.getElementById('promptText').innerText = json.prompt_en;
-        document.getElementById('promptTranslation').innerText = json.prompt_zh;
+          document.getElementById('event_4').value = json.step4_event;
+          document.getElementById('feeling_4').value = json.step4_feeling;
+          document.getElementById('event_5').value = json.step5_event;
+          document.getElementById('feeling_5').value = json.step5_feeling;
+          document.getElementById('event_6').value = json.step6_event;
+          document.getElementById('feeling_6').value = json.step6_feeling;
+          document.getElementById('event_7').value = json.step7_event;
+          document.getElementById('feeling_7').value = json.step7_feeling;
 
-        document.getElementById('attachmentSection').classList.remove('hidden');
-        document.getElementById('attachmentSection').scrollIntoView({ behavior: 'smooth' });
-        alert("✨ 成功連線 Gemini AI！故事與 Prompt 已動態生成完畢！");
-      } catch (err) {
-        alert("❌ 連線失敗，請檢查 API Key 是否正確：\n" + err.message);
-      } finally {
-        btnText.innerText = "✨ AI 智慧推演與生成";
+          document.getElementById('storyTitle').innerText = json.title;
+          document.getElementById('fullStoryText').innerText = json.full_story;
+          document.getElementById('promptText').innerText = json.prompt_en;
+          document.getElementById('promptTranslation').innerText = json.prompt_zh;
+
+          document.getElementById('attachmentSection').classList.remove('hidden');
+          document.getElementById('attachmentSection').scrollIntoView({ behavior: 'smooth' });
+          alert(`✨ 成功連線 Gemini AI (${model})！故事與 Prompt 已動態生成完畢！`);
+          success = true;
+          break;
+        } catch (err) {
+          lastError = err.message;
+        }
       }
+
+      if (!success) {
+        alert("❌ 連線失敗：\n" + lastError);
+      }
+
+      btnText.innerText = "✨ AI 智慧推演與生成";
     }
 
     function clearAllFields() {
