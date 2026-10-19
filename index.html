@@ -134,7 +134,6 @@
   </section>
 
   <script>
-    // ⚠️ 請填入您的 Google Apps Script 部署 URL：
     const GAS_API_URL = "https://script.google.com/macros/s/AKfycbzFCFJ7DH6hqWHUmfVq7hocVNiCQJFjqJHI_n3uy8g1lRoEv_vXUmLVMdsEThsnjKQ5/exec"; 
 
     const stepsData = [
@@ -178,7 +177,7 @@
       `).join('');
     }
 
-    // 📙 一鍵載入「墊底辣妹」範例
+    // 📙 一鍵載入「墊底辣妹」範例 (無編號、連貫流暢散文故事)
     function loadBiriGyalPreset() {
       const presetData = [
         { id: 1, e: "在補習班坪田老師建議下，立下考上慶應義塾大學的目標。", f: "熱血期待，心中充滿證明自己的決心與對未來的憧憬。", s: "3" },
@@ -187,7 +186,7 @@
         { id: 4, e: "經過半年苦讀，模擬考成績大幅進步衝到前段班！", f: "振奮狂喜，重新建立起信心。", s: "2" },
         { id: 5, e: "大考前夕模擬考重挫跌回 E 判定谷底，加上壓力過大身體不適。", f: "崩潰絕望，懷疑所有努力都是徒勞。", s: "-3" },
         { id: 6, e: "媽媽溫暖陪伴與坪田老師信件鼓勵「有志者事竟成」，重新調整心態。", f: "獲得力量，找回平靜沉著與自信。", s: "1" },
-        { id: 7, e: "放榜當天喜獲慶應大學錄取通知！當初嘲笑我的班導師甘服敗北，我與媽媽、老師擁抱落淚大喊我做到了！", f: "感動落淚，充滿狂喜與自我肯定。", s: "3" }
+        { id: 7, e: "放榜喜獲慶應錄取通知！班導師全裸兌現承諾，搭高鐵時看見坪田老師在月台上跳躍加油。", f: "感動落淚，充滿狂喜與自我肯定。", s: "3" }
       ];
 
       presetData.forEach(item => {
@@ -196,20 +195,20 @@
         document.getElementById(`scale_${item.id}`).value = item.s;
       });
 
-      document.getElementById('storyTitle').innerText = "《從偏差值30到慶應大學：彩加的奇蹟逆襲故事》";
+      document.getElementById('storyTitle').innerText = "《逆光飛翔的奇蹟：彩加的青春逆襲》";
       document.getElementById('fullStoryText').innerText = 
-`【1. 目標】在補習班坪田老師建議下，立下考上慶應義塾大學的目標。（內心感受：熱血期待，心中充滿證明自己的決心與對未來的憧憬。）
-【2. 阻礙】高中成績墊底、偏差值僅 30，被班導師嘲笑完全不被看好。（內心感受：沮喪自卑，深刻體會到被外界看輕的挫折與不甘心。）
-【3. 努力】剪短長髮、戒掉手遊與社交，每天在補習班苦讀至深夜。（內心感受：踏實專注，全力以赴學習。）
-【4. 結果】經過半年苦讀，模擬考成績大幅進步衝到前段班！驗證了努力沒有白費，重新建立起邁向目標的強烈信心。
-【5. 意外】然而在大考前夕模擬考重挫跌回 E 判定谷底，加上壓力過大身體不適，巨大的焦慮與自責幾乎將我淹沒。
-【6. 轉彎】在媽媽溫暖陪伴與坪田老師信件鼓勵「有志者事竟成」後，我擦乾眼淚重整心態，找回平靜沉著的力量。
-【7. 結局】放榜當天喜獲慶應大學錄取通知！那一刻與媽媽、老師激動擁抱落淚，當初嘲笑我的班導師也甘服敗北，為這段歲月感到無比驕傲。`;
+`曾經，我是個偏差值只有 30、連地理都搞不懂的「問題學生」。班導師冷眼與嘲諷，像是一道死寂的牆，將我困在自卑的陰影深處。直到遇見坪田老師，他用溫暖的信任點燃了我心中的微光，讓我敢於向遙不可及的慶應大學許下誓言。
+
+我剪去長髮，褪去繁華，在無數個孤燈相伴的深夜裡，將淚水與汗水揉進泛黃的題本中。縱使在大考前夕遭遇模擬考重挫跌入谷底、幾乎被焦慮淹沒，媽媽無條件的擁抱與老師「有志者事竟成」的信仰，依然是我最堅實的後盾。
+
+放榜那天，奇蹟降臨，慶應大學的錄取通知劃破了長夜！當初打賭我絕不可能考上的班導師，甘服敗北、赤裸著身體兌現承諾，在那看似荒誕的畫面背後，是對一個生命翻轉命運最高傲的敬意與震撼。
+
+而最令我動容並深深刻在靈魂裡的，是坐在駛向夢想未來的列車上，隔著車窗玻璃，看見坪田老師在月台上興高采烈地奮力跳躍、像個孩子般揮手為我加油的畫面。那一刻，光影在他躍起的身影旁綻放，照亮了我所有曾經艱辛、最終耀眼的逆襲歲月。`;
 
       document.getElementById('promptText').innerText = 
-        "A cinematic photorealistic portrait of a Japanese high school girl with short blonde hair celebrating outside Keio University, joyfully crying with tears of victory, holding an official acceptance letter, hugging her tearful mother and inspiring male tutor warmly under golden hour lighting, 8k, shallow depth of field.";
+        "A cinematic photorealistic portrait of a Japanese high school girl with short blonde hair sitting inside a bullet train window, looking outside emotionally as her inspiring male tutor jumps joyfully on the platform cheering for her under golden hour lighting, 8k, shallow depth of field.";
       document.getElementById('promptTranslation').innerText = 
-        "(寫實照片風格。畫面呈現：夕陽光影下的慶應大學校門前，金髮短髮高中女生眼眶泛淚舉著錄取通知書，與溫暖陪伴的母親及補習班老師激動擁抱。電影級質感，8K 高畫質。)";
+        "(寫實照片風格。畫面呈現：夕陽光影下，短髮高中女生坐在高鐵車窗旁凝視窗外，補習班坪田老師在月台上興高采烈奮力跳躍揮手為她加油。電影級質感，8K 高畫質。)";
 
       renderRainbowGrid();
       document.getElementById('attachmentSection').classList.remove('hidden');
@@ -351,8 +350,8 @@
           </div>
           <div class="tip">
             💡 <b>操作說明：</b><br>
-            1. 點擊「<b>📋 複製帶顏色表格</b>」，系統會自動將整張表格與<b>所有彩虹底色</b>複製入剪貼簿[cite: 7, 8]。<br>
-            2. 點擊「<b>➕ 開啟 Google 試算表</b>」，在 A1 格子直接按下 <b>Ctrl + V</b>，即可完美帶入所有邊框與全彩背景顏色[cite: 7, 8]！
+            1. 點擊「<b>📋 複製帶顏色表格</b>」，系統會自動將整張表格與<b>所有彩虹底色</b>複製入剪貼簿。<br>
+            2. 點擊「<b>➕ 開啟 Google 試算表</b>」，在 A1 格子直接按下 <b>Ctrl + V</b>，即可完美帶入所有邊框與全彩背景顏色！
           </div>
           <table id="rainbowTable">
             <thead>
@@ -449,7 +448,7 @@
         <body>
           <div class="header">
             <h1>🎯 靶心人公式 - 我的會考逆襲故事學習單</h1>
-            <button class="btn-print" onclick="window.print()">🖨️ 立即列印 / 另存為 PDF</button>
+            <button class="btn-print" onclick="window.print()">🖨️ 列車/另存為 PDF</button>
           </div>
 
           <h2 style="font-size:15px; margin-bottom:10px;">📊 一、彩虹情緒試算表</h2>
