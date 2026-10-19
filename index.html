@@ -64,10 +64,10 @@
           <p class="text-xs text-slate-500">自動整理 7 步驟事件、內心感受與情緒區塊標記</p>
         </div>
         <div class="flex flex-wrap gap-2">
-          <!-- 📊 可線上編輯與複製至 Google 試算表的分頁 -->
+          <!-- 📊 可帶顏色完美貼入 Google 試算表的分頁 -->
           <button onclick="openGoogleSheetsWindow()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-medium px-4 py-2 rounded-xl text-xs shadow-sm transition flex items-center gap-1.5">
             <i class="fa-solid fa-file-excel"></i>
-            <span>📊 另開 Google 試算表編輯/複製</span>
+            <span>📊 另開 Google 試算表編輯/複製 (帶顏色)</span>
           </button>
           <button onclick="openPDFPrintWindow()" class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-xl text-xs shadow-sm transition flex items-center gap-1.5">
             <i class="fa-solid fa-file-pdf"></i>
@@ -298,7 +298,7 @@
       }
     }
 
-    // 📊 另開互動可編輯分頁 + 一鍵複製貼入 Google 試算表
+    // 📊 另開帶顏色、防公式錯誤的 HTML 試算表複製分頁
     function openGoogleSheetsWindow() {
       const sheetsWindow = window.open('', '_blank');
       let rowsHTML = '';
@@ -311,11 +311,11 @@
 
         rowsHTML += `
           <tr>
-            <td style="padding:10px; border:1px solid #ccc; font-weight:bold; background-color:#f8fafc;">${stepsData[i-1].name}</td>
-            <td contenteditable="true" style="padding:10px; border:1px solid #ccc; background:#ffffff;">${e}</td>
-            <td contenteditable="true" style="padding:10px; border:1px solid #ccc; background:#ffffff;">${f}</td>
+            <td style="padding:10px; border:1px solid #cbd5e1; font-weight:bold; background-color:#f1f5f9; color:#0f172a;">${stepsData[i-1].name}</td>
+            <td contenteditable="true" style="padding:10px; border:1px solid #cbd5e1; background-color:#ffffff; color:#334155;">${e}</td>
+            <td contenteditable="true" style="padding:10px; border:1px solid #cbd5e1; background-color:#ffffff; color:#334155;">${f}</td>
             ${scales.map(sc => `
-              <td style="padding:10px; border:1px solid #ccc; text-align:center; font-weight:bold; background-color:${sc === s ? '#10b981' : '#ffffff'}; color:${sc === s ? '#ffffff' : '#000000'};">
+              <td style="padding:10px; border:1px solid #cbd5e1; text-align:center; font-weight:bold; background-color:${sc === s ? '#10b981' : '#ffffff'}; color:${sc === s ? '#ffffff' : '#64748b'}; font-size:14px;">
                 ${sc === s ? '✓' : ''}
               </td>
             `).join('')}
@@ -330,43 +330,43 @@
           <title>Google 試算表編輯版 - 我的升學故事學習單</title>
           <style>
             body { font-family: system-ui, -apple-system, sans-serif; margin: 20px; background-color: #f8fafc; }
-            .header { background-color: #0f766e; color: white; padding: 15px; font-size: 16px; font-weight: bold; border-radius: 6px 6px 0 0; display:flex; justify-content:space-between; align-items:center; }
+            .header { background-color: #0f766e; color: white; padding: 15px; font-size: 16px; font-weight: bold; border-radius: 8px 8px 0 0; display:flex; justify-content:space-between; align-items:center; }
             .btn-group { display: flex; gap: 8px; }
-            .btn { background: #ffffff; color: #0f766e; border: none; padding: 6px 14px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 12px; }
+            .btn { background: #ffffff; color: #0f766e; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 13px; shadow: 0 1px 2px rgba(0,0,0,0.1); }
             .btn-green { background: #10b981; color: white; }
             table { width: 100%; border-collapse: collapse; background-color: white; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
-            th { background-color: #047857; color: white; padding: 10px; border: 1px solid #065f46; font-size: 12px; }
+            th { padding: 10px; border: 1px solid #065f46; font-size: 12px; font-weight: bold; }
             td { font-size: 13px; text-align: left; }
             [contenteditable="true"]:focus { outline: 2px solid #10b981; background-color: #f0fdf4 !important; }
-            .tip { background: #e0f2fe; border: 1px solid #bae6fd; color: #0369a1; padding: 10px; border-radius: 6px; margin-bottom: 12px; font-size: 12px; line-height: 1.5; }
+            .tip { background: #e0f2fe; border: 1px solid #bae6fd; color: #0369a1; padding: 12px; border-radius: 8px; margin-bottom: 14px; font-size: 13px; line-height: 1.6; }
           </style>
         </head>
         <body>
           <div class="header">
-            <span>📊 我的升學故事學習單 - 試算表檢視/線上編輯</span>
+            <span>📊 我的升學故事學習單 - 彩色 Google 試算表產出頁</span>
             <div class="btn-group">
-              <button class="btn btn-green" onclick="copyTableForSheets()">📋 複製表格資料 (可直接貼上 Google 試算表)</button>
+              <button class="btn btn-green" onclick="copyRichTable()">📋 複製帶顏色表格 (貼上至 Google 試算表)</button>
               <button class="btn" onclick="window.open('https://sheet.new', '_blank')">➕ 開啟 Google 試算表 (sheet.new)</button>
             </div>
           </div>
           <div class="tip">
-            💡 <b>編輯與匯出說明：</b><br>
-            1. 表格中的「關鍵事件」與「內心感受」可以直接滑鼠點擊<b>線上修改內容</b>！<br>
-            2. 點擊「<b>📋 複製表格資料</b>」後，再點擊「<b>➕ 開啟 Google 試算表</b>」，在空白試算表中按下 <b>Ctrl + V</b>，即可連同格式與顏色完整貼上！
+            💡 <b>操作說明：</b><br>
+            1. 點擊「<b>📋 複製帶顏色表格</b>」，系統會自動將整張表格與<b>所有彩虹底色</b>複製入剪貼簿[cite: 7, 8]。<br>
+            2. 點擊「<b>➕ 開啟 Google 試算表</b>」，在 A1 格子直接按下 <b>Ctrl + V</b>，即可完美帶入所有邊框與全彩背景顏色[cite: 7, 8]！
           </div>
           <table id="rainbowTable">
             <thead>
-              <tr>
-                <th style="width:120px;">步驟</th>
-                <th>關鍵事件 (可點擊編輯)</th>
-                <th>內心感受 (可點擊編輯)</th>
-                <th style="background:#059669; text-align:center;">+3 狂喜</th>
-                <th style="background:#10b981; text-align:center;">+2 期待</th>
-                <th style="background:#34d399; text-align:center;">+1 希望</th>
-                <th style="background:#9ca3af; text-align:center;">0 平靜</th>
-                <th style="background:#f87171; text-align:center;">-1 不安</th>
-                <th style="background:#ef4444; text-align:center;">-2 沮喪</th>
-                <th style="background:#dc2626; text-align:center;">-3 崩潰</th>
+              <tr style="background-color:#047857; color:#ffffff;">
+                <th style="width:120px; background-color:#047857; color:#ffffff; border:1px solid #065f46;">步驟</th>
+                <th style="background-color:#047857; color:#ffffff; border:1px solid #065f46;">關鍵事件 (可點擊編輯)</th>
+                <th style="background-color:#047857; color:#ffffff; border:1px solid #065f46;">內心感受 (可點擊編輯)</th>
+                <th style="background-color:#059669; color:#ffffff; text-align:center; border:1px solid #065f46;">'+3 狂喜</th>
+                <th style="background-color:#10b981; color:#ffffff; text-align:center; border:1px solid #065f46;">'+2 期待</th>
+                <th style="background-color:#34d399; color:#0f172a; text-align:center; border:1px solid #065f46;">'+1 希望</th>
+                <th style="background-color:#9ca3af; color:#ffffff; text-align:center; border:1px solid #065f46;">'0 平靜</th>
+                <th style="background-color:#f87171; color:#ffffff; text-align:center; border:1px solid #065f46;">'-1 不安</th>
+                <th style="background-color:#ef4444; color:#ffffff; text-align:center; border:1px solid #065f46;">'-2 沮喪</th>
+                <th style="background-color:#dc2626; color:#ffffff; text-align:center; border:1px solid #065f46;">'-3 崩潰</th>
               </tr>
             </thead>
             <tbody>
@@ -375,19 +375,25 @@
           </table>
 
           <script>
-            function copyTableForSheets() {
+            function copyRichTable() {
               const table = document.getElementById('rainbowTable');
-              let tsv = [];
-              for (let row of table.rows) {
-                let rowData = [];
-                for (let cell of row.cells) {
-                  rowData.push(cell.innerText.replace(/\\n/g, ' '));
+              const range = document.createRange();
+              range.selectNode(table);
+              const selection = window.getSelection();
+              selection.removeAllRanges();
+              selection.addRange(range);
+              
+              try {
+                const successful = document.execCommand('copy');
+                selection.removeAllRanges();
+                if(successful) {
+                  alert('✅ 帶顏色的全彩表格已成功複製！\\n\\n請點擊「➕ 開啟 Google 試算表」，在儲存格 A1 按下 Ctrl + V 即可完美還原包含所有底色的表格！');
+                } else {
+                  throw new Error('Copy command failed');
                 }
-                tsv.push(rowData.join('\\t'));
+              } catch (err) {
+                alert('❌ 複製失敗，請直接手動全選下方表格後按下 Ctrl + C 複製。');
               }
-              navigator.clipboard.writeText(tsv.join('\\n')).then(() => {
-                alert('✅ 已成功複製表格格式資料！\\n\\n請點擊「➕ 開啟 Google 試算表」，並在空白儲存格直接按下 Ctrl + V 即可完美貼上。');
-              });
             }
           <\/script>
         </body>
