@@ -64,10 +64,10 @@
           <p class="text-xs text-slate-500">自動整理 7 步驟事件、內心感受與情緒區塊標記</p>
         </div>
         <div class="flex flex-wrap gap-2">
-          <!-- 📊 另開 Google 試算表分頁 -->
+          <!-- 📊 可線上編輯與複製至 Google 試算表的分頁 -->
           <button onclick="openGoogleSheetsWindow()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-medium px-4 py-2 rounded-xl text-xs shadow-sm transition flex items-center gap-1.5">
             <i class="fa-solid fa-file-excel"></i>
-            <span>📊 另開 Google 試算表檢視</span>
+            <span>📊 另開 Google 試算表編輯/複製</span>
           </button>
           <button onclick="openPDFPrintWindow()" class="bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-xl text-xs shadow-sm transition flex items-center gap-1.5">
             <i class="fa-solid fa-file-pdf"></i>
@@ -178,7 +178,7 @@
       `).join('');
     }
 
-    // 📙 一鍵載入「墊底辣妹」範例 (不觸發 AI，直接填寫所有步驟與附件)
+    // 📙 一鍵載入「墊底辣妹」範例
     function loadBiriGyalPreset() {
       const presetData = [
         { id: 1, e: "在補習班坪田老師建議下，立下考上慶應義塾大學的目標。", f: "熱血期待，心中充滿證明自己的決心與對未來的憧憬。", s: "3" },
@@ -298,7 +298,7 @@
       }
     }
 
-    // 📊 另開 Google 試算表檢視分頁
+    // 📊 另開互動可編輯分頁 + 一鍵複製貼入 Google 試算表
     function openGoogleSheetsWindow() {
       const sheetsWindow = window.open('', '_blank');
       let rowsHTML = '';
@@ -312,8 +312,8 @@
         rowsHTML += `
           <tr>
             <td style="padding:10px; border:1px solid #ccc; font-weight:bold; background-color:#f8fafc;">${stepsData[i-1].name}</td>
-            <td style="padding:10px; border:1px solid #ccc;">${e}</td>
-            <td style="padding:10px; border:1px solid #ccc;">${f}</td>
+            <td contenteditable="true" style="padding:10px; border:1px solid #ccc; background:#ffffff;">${e}</td>
+            <td contenteditable="true" style="padding:10px; border:1px solid #ccc; background:#ffffff;">${f}</td>
             ${scales.map(sc => `
               <td style="padding:10px; border:1px solid #ccc; text-align:center; font-weight:bold; background-color:${sc === s ? '#10b981' : '#ffffff'}; color:${sc === s ? '#ffffff' : '#000000'};">
                 ${sc === s ? '✓' : ''}
@@ -327,27 +327,39 @@
         <!DOCTYPE html>
         <html>
         <head>
-          <title>Google 試算表 - 我的升學故事學習單</title>
+          <title>Google 試算表編輯版 - 我的升學故事學習單</title>
           <style>
             body { font-family: system-ui, -apple-system, sans-serif; margin: 20px; background-color: #f8fafc; }
-            .header { background-color: #0f766e; color: white; padding: 15px; font-size: 18px; font-weight: bold; border-radius: 6px 6px 0 0; display:flex; justify-content:space-between; align-items:center; }
+            .header { background-color: #0f766e; color: white; padding: 15px; font-size: 16px; font-weight: bold; border-radius: 6px 6px 0 0; display:flex; justify-content:space-between; align-items:center; }
+            .btn-group { display: flex; gap: 8px; }
+            .btn { background: #ffffff; color: #0f766e; border: none; padding: 6px 14px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 12px; }
+            .btn-green { background: #10b981; color: white; }
             table { width: 100%; border-collapse: collapse; background-color: white; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
             th { background-color: #047857; color: white; padding: 10px; border: 1px solid #065f46; font-size: 12px; }
             td { font-size: 13px; text-align: left; }
-            .btn-print { background: #ffffff; color: #0f766e; border: none; padding: 6px 14px; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 12px; }
+            [contenteditable="true"]:focus { outline: 2px solid #10b981; background-color: #f0fdf4 !important; }
+            .tip { background: #e0f2fe; border: 1px solid #bae6fd; color: #0369a1; padding: 10px; border-radius: 6px; margin-bottom: 12px; font-size: 12px; line-height: 1.5; }
           </style>
         </head>
         <body>
           <div class="header">
-            <span>📊 我的升學故事學習單 - Google 試算表檢視版</span>
-            <button class="btn-print" onclick="window.print()">🖨️ 列印 / 匯出 PDF</button>
+            <span>📊 我的升學故事學習單 - 試算表檢視/線上編輯</span>
+            <div class="btn-group">
+              <button class="btn btn-green" onclick="copyTableForSheets()">📋 複製表格資料 (可直接貼上 Google 試算表)</button>
+              <button class="btn" onclick="window.open('https://sheet.new', '_blank')">➕ 開啟 Google 試算表 (sheet.new)</button>
+            </div>
           </div>
-          <table>
+          <div class="tip">
+            💡 <b>編輯與匯出說明：</b><br>
+            1. 表格中的「關鍵事件」與「內心感受」可以直接滑鼠點擊<b>線上修改內容</b>！<br>
+            2. 點擊「<b>📋 複製表格資料</b>」後，再點擊「<b>➕ 開啟 Google 試算表</b>」，在空白試算表中按下 <b>Ctrl + V</b>，即可連同格式與顏色完整貼上！
+          </div>
+          <table id="rainbowTable">
             <thead>
               <tr>
                 <th style="width:120px;">步驟</th>
-                <th>關鍵事件</th>
-                <th>內心感受</th>
+                <th>關鍵事件 (可點擊編輯)</th>
+                <th>內心感受 (可點擊編輯)</th>
                 <th style="background:#059669; text-align:center;">+3 狂喜</th>
                 <th style="background:#10b981; text-align:center;">+2 期待</th>
                 <th style="background:#34d399; text-align:center;">+1 希望</th>
@@ -361,6 +373,23 @@
               ${rowsHTML}
             </tbody>
           </table>
+
+          <script>
+            function copyTableForSheets() {
+              const table = document.getElementById('rainbowTable');
+              let tsv = [];
+              for (let row of table.rows) {
+                let rowData = [];
+                for (let cell of row.cells) {
+                  rowData.push(cell.innerText.replace(/\\n/g, ' '));
+                }
+                tsv.push(rowData.join('\\t'));
+              }
+              navigator.clipboard.writeText(tsv.join('\\n')).then(() => {
+                alert('✅ 已成功複製表格格式資料！\\n\\n請點擊「➕ 開啟 Google 試算表」，並在空白儲存格直接按下 Ctrl + V 即可完美貼上。');
+              });
+            }
+          <\/script>
         </body>
         </html>
       `);
