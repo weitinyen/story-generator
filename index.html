@@ -215,71 +215,71 @@
       document.getElementById('attachmentSection').scrollIntoView({ behavior: 'smooth' });
     }
 
-    async function triggerBackendAIGeneration() {
-      // 收集步驟 1~7 全部內容
-      const e1 = document.getElementById('event_1').value.trim();
-      const e2 = document.getElementById('event_2').value.trim();
-      const e3 = document.getElementById('event_3').value.trim();
-      const e4 = document.getElementById('event_4').value.trim();
-      const e5 = document.getElementById('event_5').value.trim();
-      const e6 = document.getElementById('event_6').value.trim();
-      const e7 = document.getElementById('event_7').value.trim();
+async function triggerBackendAIGeneration() {
+  const e1 = document.getElementById('event_1').value.trim();
+  const e2 = document.getElementById('event_2').value.trim();
+  const e3 = document.getElementById('event_3').value.trim();
+  // 💡 新增：讀取步驟 4~7 的輸入值
+  const e4 = document.getElementById('event_4').value.trim();
+  const e5 = document.getElementById('event_5').value.trim();
+  const e6 = document.getElementById('event_6').value.trim();
+  const e7 = document.getElementById('event_7').value.trim();
 
-      if (!e1 || !e2 || !e3) {
-        alert("請先完成步驟 1、2、3 的基礎想法再進行生成！");
-        return;
-      }
+  if (!e1 || !e2 || !e3) {
+    alert("請先完成步驟 1、2、3 的基礎想法再進行生成！");
+    return;
+  }
 
-      const btn = document.getElementById('aiBtn');
-      const btnText = document.getElementById('aiBtnText');
-      btn.disabled = true;
-      btnText.innerText = "🤖 後端 Gemini 正在優化與推演中...";
+  const btn = document.getElementById('aiBtn');
+  const btnText = document.getElementById('aiBtnText');
+  btn.disabled = true;
+  btnText.innerText = "🤖 後端 Gemini 正在優化與推演中...";
 
-      try {
-        const response = await fetch(GAS_API_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-          body: JSON.stringify({
-            step1: e1, step2: e2, step3: e3,
-            step4: e4, step5: e5, step6: e6, step7: e7
-          })
-        });
+  try {
+    const response = await fetch(GAS_API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      // 💡 修改：將 step4~7 也一起傳給 GAS 後端
+      body: JSON.stringify({ 
+        step1: e1, step2: e2, step3: e3,
+        step4: e4, step5: e5, step6: e6, step7: e7
+      })
+    });
 
-        const data = await response.json();
+    const data = await response.json();
 
-        if (!data.success) {
-          throw new Error(data.error || "後端 API 未回傳成功狀態");
-        }
-
-        if (data.steps && Array.isArray(data.steps)) {
-          data.steps.forEach(s => {
-            if (document.getElementById(`event_${s.id}`)) {
-              document.getElementById(`event_${s.id}`).value = s.event;
-              document.getElementById(`feeling_${s.id}`).value = s.feeling;
-              document.getElementById(`scale_${s.id}`).value = s.scale;
-            }
-          });
-        }
-
-        if (data.story_title) document.getElementById('storyTitle').innerText = data.story_title;
-        if (data.full_story) document.getElementById('fullStoryText').innerText = data.full_story;
-        if (data.prompt_en) document.getElementById('promptText').innerText = data.prompt_en;
-        if (data.prompt_zh) document.getElementById('promptTranslation').innerText = data.prompt_zh;
-
-        renderRainbowGrid();
-        document.getElementById('attachmentSection').classList.remove('hidden');
-        document.getElementById('attachmentSection').scrollIntoView({ behavior: 'smooth' });
-
-        alert("✨ 後端 Gemini AI 推演成功！已優化既有內容並完成全篇推演。");
-
-      } catch (err) {
-        alert("❌ 生成失敗：\n" + err.message);
-      } finally {
-        btn.disabled = false;
-        btnText.innerText = "✨ AI 智慧推演與生成全文";
-      }
+    if (!data.success) {
+      throw new Error(data.error || "後端 API 未回傳成功狀態");
     }
 
+    if (data.steps && Array.isArray(data.steps)) {
+      data.steps.forEach(s => {
+        if (document.getElementById(`event_${s.id}`)) {
+          document.getElementById(`event_${s.id}`).value = s.event;
+          document.getElementById(`feeling_${s.id}`).value = s.feeling;
+          document.getElementById(`scale_${s.id}`).value = s.scale;
+        }
+      });
+    }
+
+    if (data.story_title) document.getElementById('storyTitle').innerText = data.story_title;
+    if (data.full_story) document.getElementById('fullStoryText').innerText = data.full_story;
+    if (data.prompt_en) document.getElementById('promptText').innerText = data.prompt_en;
+    if (data.prompt_zh) document.getElementById('promptTranslation').innerText = data.prompt_zh;
+
+    renderRainbowGrid();
+    document.getElementById('attachmentSection').classList.remove('hidden');
+    document.getElementById('attachmentSection').scrollIntoView({ behavior: 'smooth' });
+
+    alert("✨ 後端 Gemini AI 推演成功！已更新 1~7 步驟、故事全文與繪圖提示詞。");
+
+  } catch (err) {
+    alert("❌ 生成失敗：\n" + err.message);
+  } finally {
+    btn.disabled = false;
+    btnText.innerText = "✨ AI 智慧推演與生成全文";
+  }
+}
     function renderRainbowGrid() {
       const tbody = document.getElementById('rainbowGridBody');
       const scales = ["3", "2", "1", "0", "-1", "-2", "-3"];
