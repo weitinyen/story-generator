@@ -177,7 +177,7 @@
       `).join('');
     }
 
-    // 📙 一鍵載入「墊底辣妹」範例 (無編號、連貫流暢散文故事)
+    // 📙 一鍵載入「墊底辣妹」範例
     function loadBiriGyalPreset() {
       const presetData = [
         { id: 1, e: "在補習班坪田老師建議下，立下考上慶應義塾大學的目標。", f: "熱血期待，心中充滿證明自己的決心與對未來的憧憬。", s: "3" },
@@ -216,7 +216,7 @@
     }
 
     async function triggerBackendAIGeneration() {
-      // 打包收集步驟 1~7 的輸入內容
+      // 收集步驟 1~7 全部內容
       const e1 = document.getElementById('event_1').value.trim();
       const e2 = document.getElementById('event_2').value.trim();
       const e3 = document.getElementById('event_3').value.trim();
@@ -270,7 +270,7 @@
         document.getElementById('attachmentSection').classList.remove('hidden');
         document.getElementById('attachmentSection').scrollIntoView({ behavior: 'smooth' });
 
-        alert("✨ 後端 Gemini AI 推演成功！已優化既有步驟與故事全文。");
+        alert("✨ 後端 Gemini AI 推演成功！已優化既有內容並完成全篇推演。");
 
       } catch (err) {
         alert("❌ 生成失敗：\n" + err.message);
@@ -305,7 +305,6 @@
       }
     }
 
-    // 📊 另開帶顏色、防公式錯誤的 HTML 試算表複製分頁
     function openGoogleSheetsWindow() {
       const sheetsWindow = window.open('', '_blank');
       let rowsHTML = '';
@@ -409,7 +408,6 @@
       sheetsWindow.document.close();
     }
 
-    // 🖨️ 另開列印 / 匯出 PDF 分頁
     function openPDFPrintWindow() {
       const printWin = window.open('', '_blank');
       let rowsHTML = '';
