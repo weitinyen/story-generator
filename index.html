@@ -27,7 +27,7 @@
         🎯 靶心人公式 - 會考逆襲故事學習單
       </h1>
       <p class="text-slate-500 text-sm md:text-base">
-        填寫步驟 1~3，AI 將會**自動優化 1~3 步驟、推演 4~7 步驟**，並生成全文故事、情緒試算表與繪圖提示詞！
+        填寫步驟 1~3（4~7 選填），AI 將會**自動優化全篇文字並補齊未填步驟**，生成故事全文、情緒試算表與繪圖提示詞！
       </p>
     </div>
 
@@ -140,10 +140,10 @@
       { id: 1, name: "1. 目標 (Goal)", isReq: true, pE: "例如：考上第一志願高雄中學", pF: "例如：熱血期待，充滿決心", defS: "3" },
       { id: 2, name: "2. 阻礙 (Obstacle)", isReq: true, pE: "例如：數學理化成績墊底常被嘲笑", pF: "例如：沮喪挫折，壓力巨大", defS: "-2" },
       { id: 3, name: "3. 努力 (Effort)", isReq: true, pE: "例如：刪除手遊天天早起刷錯題本", pF: "例如：踏實專注，一步一腳印", defS: "1" },
-      { id: 4, name: "4. 結果 (Result)", isReq: false, pE: "AI 動態推演中...", pF: "AI 動態推演中...", defS: "2" },
-      { id: 5, name: "5. 意外 (Accident)", isReq: false, pE: "AI 動態推演中...", pF: "AI 動態推演中...", defS: "-3" },
-      { id: 6, name: "6. 轉彎 (Twist)", isReq: false, pE: "AI 動態推演中...", pF: "AI 動態推演中...", defS: "1" },
-      { id: 7, name: "7. 結局 (Ending)", isReq: false, pE: "AI 動態推演中...", pF: "AI 動態推演中...", defS: "3" }
+      { id: 4, name: "4. 結果 (Result)", isReq: false, pE: "可自行填寫或由 AI 自動推演", pF: "內心感受（選填）", defS: "2" },
+      { id: 5, name: "5. 意外 (Accident)", isReq: false, pE: "可自行填寫或由 AI 自動推演", pF: "內心感受（選填）", defS: "-3" },
+      { id: 6, name: "6. 轉彎 (Twist)", isReq: false, pE: "可自行填寫或由 AI 自動推演", pF: "內心感受（選填）", defS: "1" },
+      { id: 7, name: "7. 結局 (Ending)", isReq: false, pE: "可自行填寫或由 AI 自動推演", pF: "內心感受（選填）", defS: "3" }
     ];
 
     const emotionOptions = [
@@ -161,7 +161,7 @@
         <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm">
           <div class="flex items-center justify-between mb-3">
             <h3 class="font-bold text-slate-800 text-sm md:text-base">${s.name}</h3>
-            ${s.isReq ? '<span class="text-[11px] bg-blue-100 text-blue-600 px-2 py-0.5 rounded">必填輸入</span>' : '<span class="text-[11px] bg-amber-100 text-amber-600 px-2 py-0.5 rounded">AI優化/推演</span>'}
+            ${s.isReq ? '<span class="text-[11px] bg-blue-100 text-blue-600 px-2 py-0.5 rounded">必填輸入</span>' : '<span class="text-[11px] bg-amber-100 text-amber-600 px-2 py-0.5 rounded">可填/AI推演</span>'}
           </div>
 
           <div class="space-y-3">
@@ -216,9 +216,14 @@
     }
 
     async function triggerBackendAIGeneration() {
+      // 打包收集步驟 1~7 的輸入內容
       const e1 = document.getElementById('event_1').value.trim();
       const e2 = document.getElementById('event_2').value.trim();
       const e3 = document.getElementById('event_3').value.trim();
+      const e4 = document.getElementById('event_4').value.trim();
+      const e5 = document.getElementById('event_5').value.trim();
+      const e6 = document.getElementById('event_6').value.trim();
+      const e7 = document.getElementById('event_7').value.trim();
 
       if (!e1 || !e2 || !e3) {
         alert("請先完成步驟 1、2、3 的基礎想法再進行生成！");
@@ -234,7 +239,10 @@
         const response = await fetch(GAS_API_URL, {
           method: 'POST',
           headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-          body: JSON.stringify({ step1: e1, step2: e2, step3: e3 })
+          body: JSON.stringify({
+            step1: e1, step2: e2, step3: e3,
+            step4: e4, step5: e5, step6: e6, step7: e7
+          })
         });
 
         const data = await response.json();
@@ -262,7 +270,7 @@
         document.getElementById('attachmentSection').classList.remove('hidden');
         document.getElementById('attachmentSection').scrollIntoView({ behavior: 'smooth' });
 
-        alert("✨ 後端 Gemini AI 推演成功！已更新 1~7 步驟、故事全文與繪圖提示詞。");
+        alert("✨ 後端 Gemini AI 推演成功！已優化既有步驟與故事全文。");
 
       } catch (err) {
         alert("❌ 生成失敗：\n" + err.message);
@@ -448,7 +456,7 @@
         <body>
           <div class="header">
             <h1>🎯 靶心人公式 - 我的會考逆襲故事學習單</h1>
-            <button class="btn-print" onclick="window.print()">🖨️ 列車/另存為 PDF</button>
+            <button class="btn-print" onclick="window.print()">🖨️ 立即列印 / 另存為 PDF</button>
           </div>
 
           <h2 style="font-size:15px; margin-bottom:10px;">📊 一、彩虹情緒試算表</h2>
