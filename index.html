@@ -134,6 +134,7 @@
   </section>
 
   <script>
+    // ⚠️ 請填入您的 Google Apps Script 最新部署 URL：
     const GAS_API_URL = "https://script.google.com/macros/s/AKfycbzFCFJ7DH6hqWHUmfVq7hocVNiCQJFjqJHI_n3uy8g1lRoEv_vXUmLVMdsEThsnjKQ5/exec"; 
 
     const stepsData = [
@@ -177,7 +178,7 @@
       `).join('');
     }
 
-    // 📙 一鍵載入「墊底辣妹」範例 (無編號、連貫流暢散文故事)
+    // 📙 一鍵載入「墊底辣妹」範例（無編號、連貫流暢意境短文）
     function loadBiriGyalPreset() {
       const presetData = [
         { id: 1, e: "在補習班坪田老師建議下，立下考上慶應義塾大學的目標。", f: "熱血期待，心中充滿證明自己的決心與對未來的憧憬。", s: "3" },
@@ -297,7 +298,7 @@
       }
     }
 
-    // 📊 另開帶顏色、防公式錯誤的 HTML 試算表複製分頁
+    // 📊 另開帶顏色、防公式錯誤 (#ERROR!) 的 HTML 試算表複製分頁
     function openGoogleSheetsWindow() {
       const sheetsWindow = window.open('', '_blank');
       let rowsHTML = '';
@@ -448,7 +449,7 @@
         <body>
           <div class="header">
             <h1>🎯 靶心人公式 - 我的會考逆襲故事學習單</h1>
-            <button class="btn-print" onclick="window.print()">🖨️ 列車/另存為 PDF</button>
+            <button class="btn-print" onclick="window.print()">🖨️ 立即列印 / 另存為 PDF</button>
           </div>
 
           <h2 style="font-size:15px; margin-bottom:10px;">📊 一、彩虹情緒試算表</h2>
