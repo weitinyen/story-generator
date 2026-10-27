@@ -235,7 +235,7 @@
       document.getElementById('attachmentSection').scrollIntoView({ behavior: 'smooth' });
     }
 
-    async function triggerBackendAIGeneration() {
+  async function triggerBackendAIGeneration() {
   const e1 = document.getElementById('event_1').value.trim();
   const e2 = document.getElementById('event_2').value.trim();
   const e3 = document.getElementById('event_3').value.trim();
@@ -252,13 +252,12 @@
   const btn = document.getElementById('aiBtn');
   const btnText = document.getElementById('aiBtnText');
   btn.disabled = true;
-  btnText.innerText = "⏳ AI 正在生成中...（請勿切換視窗或熄滅螢幕）";
+  btnText.innerText = "🤖 後端 Gemini 正在優化與推演中...";
 
   try {
+    // 💡 移除特定 headers 與 redirect，避免觸發手機 Chrome 的 CORS 預檢攔截
     const response = await fetch(GAS_API_URL, {
       method: 'POST',
-      redirect: 'follow', // 💡 新增：確保手機瀏覽器能正確跟隨 GAS 的 302 重定向
-      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
       body: JSON.stringify({ 
         step1: e1, step2: e2, step3: e3,
         step4: e4, step5: e5, step6: e6, step7: e7
@@ -293,7 +292,7 @@
     alert("✨ 後端 Gemini AI 推演成功！已更新 1~7 步驟、故事全文與繪圖提示詞。");
 
   } catch (err) {
-    alert("❌ 連線失敗 (Failed to fetch)：\n1. 請確認手機網路連線正常。\n2. 生成需 10~15 秒，請保持螢幕開啟且切勿切換至其他 App！");
+    alert("❌ 生成失敗：\n" + err.message + "\n\n💡 提示：手機請保持螢幕開啟並停留在當前頁面。");
   } finally {
     btn.disabled = false;
     btnText.innerText = "✨ AI 智慧推演與生成全文";
