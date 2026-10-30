@@ -3,60 +3,32 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🎯 靶心人公式 - 全能故事 AI 創作神器</title>
-  <script src="[https://cdn.tailwindcss.com](https://cdn.tailwindcss.com)"></script>
-  <link rel="stylesheet" href="[https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css](https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css)">
+  <title>🎯 靶心人公式 - 我的升學故事學習單產生器</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     body { background-color: #f0f4f9; font-family: system-ui, -apple-system, sans-serif; }
     .gemini-card { background: #ffffff; border-radius: 1.5rem; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03); }
     .custom-scrollbar::-webkit-scrollbar { width: 6px; }
     .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
-    .genre-btn-active { background-color: #2563eb !important; color: white !important; border-color: #2563eb !important; box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25); }
   </style>
 </head>
 <body class="min-h-screen p-4 md:p-8 text-slate-800">
+
   <header class="max-w-5xl mx-auto mb-6 flex justify-between items-center px-2">
     <div class="flex items-center gap-2 text-xl font-bold text-slate-700">
-      <span class="text-blue-600">🎯 靶心人公式．全能故事 AI 產生器</span>
+      <span class="text-blue-600">🎯 靶心人公式升學故事 AI 產生器</span>
     </div>
   </header>
 
   <main class="max-w-5xl mx-auto gemini-card p-6 md:p-10 mb-10">
     <div class="text-center mb-8">
       <h1 class="text-2xl md:text-3xl font-extrabold text-slate-800 tracking-tight mb-2">
-        🎯 7 大故事類型．智慧創作學習單
+        🎯 靶心人公式 - 會考逆襲故事學習單
       </h1>
       <p class="text-slate-500 text-sm md:text-base">
-        選擇故事類型 ➔ 填寫步驟 1~3（4~7 選填），AI 將**自動優化文字並推演未填步驟**，產出連貫全文、彩虹情緒試算表與專屬繪圖 Prompt！
+        填寫步驟 1~3（4~7 選填），AI 將會**自動優化全篇文字並補齊未填步驟**，生成故事全文、情緒試算表與繪圖提示詞！
       </p>
-    </div>
-
-    <!-- 1. Genre Selector Grid -->
-    <div class="mb-8">
-      <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-3 text-center">📌 請選擇故事類型</label>
-      <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-7 gap-2" id="genreContainer">
-        <button onclick="changeGenre(this, '奇幻與科幻')" class="genre-btn border border-slate-200 bg-slate-50 hover:bg-blue-50 text-slate-700 font-bold p-3 rounded-xl text-xs transition text-center flex flex-col items-center gap-1">
-          <span class="text-lg">🧙‍♂️</span><span>奇幻科幻</span>
-        </button>
-        <button onclick="changeGenre(this, '冒險與尋寶')" class="genre-btn border border-slate-200 bg-slate-50 hover:bg-blue-50 text-slate-700 font-bold p-3 rounded-xl text-xs transition text-center flex flex-col items-center gap-1">
-          <span class="text-lg">🗺️</span><span>冒險尋寶</span>
-        </button>
-        <button onclick="changeGenre(this, '推理與懸疑')" class="genre-btn border border-slate-200 bg-slate-50 hover:bg-blue-50 text-slate-700 font-bold p-3 rounded-xl text-xs transition text-center flex flex-col items-center gap-1">
-          <span class="text-lg">🔍</span><span>推理懸疑</span>
-        </button>
-        <button onclick="changeGenre(this, '恐怖與驚悚')" class="genre-btn border border-slate-200 bg-slate-50 hover:bg-blue-50 text-slate-700 font-bold p-3 rounded-xl text-xs transition text-center flex flex-col items-center gap-1">
-          <span class="text-lg">👻</span><span>恐怖驚悚</span>
-        </button>
-        <button onclick="changeGenre(this, '浪漫與愛情')" class="genre-btn border border-slate-200 bg-slate-50 hover:bg-blue-50 text-slate-700 font-bold p-3 rounded-xl text-xs transition text-center flex flex-col items-center gap-1">
-          <span class="text-lg">❤️</span><span>浪漫愛情</span>
-        </button>
-        <button onclick="changeGenre(this, '現實與劇情')" class="genre-btn genre-btn-active border border-slate-200 bg-slate-50 hover:bg-blue-50 text-slate-700 font-bold p-3 rounded-xl text-xs transition text-center flex flex-col items-center gap-1">
-          <span class="text-lg">🎓</span><span>現實劇情</span>
-        </button>
-        <button onclick="changeGenre(this, '喜劇與幽默')" class="genre-btn border border-slate-200 bg-slate-50 hover:bg-blue-50 text-slate-700 font-bold p-3 rounded-xl text-xs transition text-center flex flex-col items-center gap-1">
-          <span class="text-lg">😂</span><span>喜劇幽默</span>
-        </button>
-      </div>
     </div>
 
     <!-- Actions -->
@@ -65,11 +37,14 @@
         <i class="fa-solid fa-wand-magic-sparkles text-amber-300"></i>
         <span id="aiBtnText">✨ AI 智慧推演與生成全文</span>
       </button>
-      <button onclick="loadSelectedGenrePreset()" class="bg-amber-500 hover:bg-amber-600 text-white font-medium px-5 py-2.5 rounded-xl text-sm shadow-sm transition flex items-center gap-2">
+
+      <!-- 📙 墊底辣妹一鍵載入按鈕 -->
+      <button onclick="loadBiriGyalPreset()" class="bg-amber-500 hover:bg-amber-600 text-white font-medium px-5 py-2.5 rounded-xl text-sm shadow-sm transition flex items-center gap-2">
         <i class="fa-solid fa-book"></i>
-        <span id="presetBtnText">📙 載入【現實與劇情】完整範例</span>
+        <span>📙 墊底辣妹範例</span>
       </button>
-      <button onclick="clearAllFields()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-medium px-4 py-2.5 rounded-xl text-sm">🧹 清除內容</button>
+
+      <button onclick="clearAllFields()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-medium px-4 py-2.5 rounded-xl text-sm">🧹 清除</button>
     </div>
 
     <!-- 7 Step Inputs -->
@@ -89,6 +64,7 @@
           <p class="text-xs text-slate-500">自動整理 7 步驟事件、內心感受與情緒區塊標記</p>
         </div>
         <div class="flex flex-wrap gap-2">
+          <!-- 📊 可帶顏色完美貼入 Google 試算表的分頁 -->
           <button onclick="openGoogleSheetsWindow()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-medium px-4 py-2 rounded-xl text-xs shadow-sm transition flex items-center gap-1.5">
             <i class="fa-solid fa-file-excel"></i>
             <span>📊 另開 Google 試算表編輯/複製 (帶顏色)</span>
@@ -99,6 +75,7 @@
           </button>
         </div>
       </div>
+
       <div class="overflow-x-auto rounded-xl border border-slate-200 custom-scrollbar">
         <table class="w-full text-left text-xs border-collapse">
           <thead>
@@ -112,7 +89,7 @@
               <th class="p-3 text-center border-r border-emerald-700" style="background:#9ca3af;">0<br><span class="text-[9px]">平靜</span></th>
               <th class="p-3 text-center border-r border-emerald-700" style="background:#f87171;">-1<br><span class="text-[9px]">不安</span></th>
               <th class="p-3 text-center border-r border-emerald-700" style="background:#ef4444;">-2<br><span class="text-[9px]">沮喪</span></th>
-              <th class="p-3 text-center" style="background:#dc2626;">-3<br><span class="text-[9px]">絕望</span></th>
+              <th class="p-3 text-center" style="background:#dc2626;">-3<br><span class="text-[9px]">崩潰</span></th>
             </tr>
           </thead>
           <tbody id="rainbowGridBody" class="divide-y divide-slate-200 bg-white"></tbody>
@@ -125,14 +102,14 @@
       <div class="flex items-center justify-between mb-4">
         <h2 class="text-lg font-bold text-slate-800 flex items-center gap-2">
           <i class="fa-solid fa-book-open text-blue-600"></i>
-          <span>7步驟連貫故事全文</span>
+          <span>升學逆襲故事 - 7步驟連貫故事全文</span>
         </h2>
         <button onclick="copyToClipboard('fullStoryText')" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-600 font-medium px-3.5 py-2 rounded-xl shadow-sm">
           <i class="fa-regular fa-copy"></i> 複製全文
         </button>
       </div>
       <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200">
-        <h3 id="storyTitle" class="text-base font-bold text-slate-800 mb-3 border-b pb-2">《故事標題》</h3>
+        <h3 id="storyTitle" class="text-base font-bold text-slate-800 mb-3 border-b pb-2">《我的升學逆襲故事》</h3>
         <div id="fullStoryText" class="text-sm text-slate-700 leading-relaxed whitespace-pre-line font-serif"></div>
       </div>
     </div>
@@ -148,13 +125,16 @@
           <i class="fa-regular fa-copy"></i> 複製 Prompt
         </button>
       </div>
+
+      <!-- 💡 個人照片繪圖使用提示 -->
       <div class="bg-blue-50 border border-blue-200 text-blue-800 p-3.5 rounded-xl text-xs leading-relaxed flex items-start gap-2">
         <span class="text-base">💡</span>
         <div>
-          <strong>如何生成包含個人特徵的故事主角照片？</strong><br>
-          前往 ChatGPT / Midjourney 繪圖時，先點擊 <b>「+」上傳清晰個人照</b>，再複製並貼上下方提示詞，AI 即可生成專屬故事劇照！
+          <strong>如何生成包含「學生本人」的故事主角照片？</strong><br>
+          前往 ChatGPT / Midjourney 繪圖時，先點擊 <b>「+」上傳學生的清晰個人照</b>，再複製並貼下方提示詞，AI 就能以學生本人的輪廓特徵生成專屬升學劇照！
         </div>
       </div>
+
       <div class="bg-slate-50 p-5 rounded-2xl border border-slate-200 space-y-3">
         <div id="promptText" class="font-mono text-xs text-blue-600 bg-white p-4 rounded-xl border border-slate-200 shadow-inner"></div>
         <p id="promptTranslation" class="text-xs text-slate-500 italic"></p>
@@ -163,15 +143,12 @@
   </section>
 
   <script>
-    // 🔗 您的 Google Apps Script 部署網址
-    const GAS_API_URL = "https://script.google.com/a/macros/go.edu.tw/s/AKfycbyotkLEvwMpJjH18qyo5pdPae-3qqDMnRP1gmS-BSBjywC6jLunn3vKD3BVIdX50vO0gA/exec"; 
-
-    let currentGenre = "現實與劇情";
+    const GAS_API_URL = "https://script.google.com/macros/s/AKfycbzFCFJ7DH6hqWHUmfVq7hocVNiCQJFjqJHI_n3uy8g1lRoEv_vXUmLVMdsEThsnjKQ5/exec"; 
 
     const stepsData = [
-      { id: 1, name: "1. 目標 (Goal)", isReq: true, pE: "例如：考上第一志願 / 逃出怪物牢籠", pF: "例如：熱血期待，充滿決心", defS: "3" },
-      { id: 2, name: "2. 阻礙 (Obstacle)", isReq: true, pE: "例如：成績墊底 / 鎖鏈怪聲襲來", pF: "例如：沮喪挫折，壓力巨大", defS: "-2" },
-      { id: 3, name: "3. 努力 (Effort)", isReq: true, pE: "例如：天天苦讀刷題 / 躲鐵櫃觀察規律", pF: "例如：踏實專注，一步一腳印", defS: "1" },
+      { id: 1, name: "1. 目標 (Goal)", isReq: true, pE: "例如：考上第一志願高雄中學", pF: "例如：熱血期待，充滿決心", defS: "3" },
+      { id: 2, name: "2. 阻礙 (Obstacle)", isReq: true, pE: "例如：數學理化成績墊底常被嘲笑", pF: "例如：沮喪挫折，壓力巨大", defS: "-2" },
+      { id: 3, name: "3. 努力 (Effort)", isReq: true, pE: "例如：刪除手遊天天早起刷錯題本", pF: "例如：踏實專注，一步一腳印", defS: "1" },
       { id: 4, name: "4. 結果 (Result)", isReq: false, pE: "可自行填寫或由 AI 自動推演", pF: "內心感受（選填）", defS: "2" },
       { id: 5, name: "5. 意外 (Accident)", isReq: false, pE: "可自行填寫或由 AI 自動推演", pF: "內心感受（選填）", defS: "-3" },
       { id: 6, name: "6. 轉彎 (Twist)", isReq: false, pE: "可自行填寫或由 AI 自動推演", pF: "內心感受（選填）", defS: "1" },
@@ -185,126 +162,18 @@
       { v: "0", t: "0 (平靜/沉著)" },
       { v: "-1", t: "-1 (不安/焦慮)" },
       { v: "-2", t: "-2 (沮喪/挫折)" },
-      { v: "-3", t: "-3 (絕望/崩潰)" }
+      { v: "-3", t: "-3 (崩潰/絕望)" }
     ];
 
+    // 🎨 各情緒指數對應的彩虹底色 Mapping
     const emotionColorMap = {
-      "3": "#059669",  // +3 狂喜
-      "2": "#10b981",  // +2 期待
-      "1": "#34d399",  // +1 希望
-      "0": "#9ca3af",  //  0 平靜
-      "-1": "#f87171", // -1 不安
-      "-2": "#ef4444", // -2 沮喪
-      "-3": "#dc2626"  // -3 絕望
-    };
-
-    // 🌟 7 大故事類型預設範例集
-    const fullPresets = {
-      "現實與劇情": {
-        title: "《逆光飛翔的奇蹟：彩加的青春逆襲》",
-        story: "曾經，我是個偏差值只有 30、連地理都搞不懂的「問題學生」。班導師冷眼與嘲諷，像是一道死寂的牆，將我困在自卑的陰影深處。直到遇見坪田老師，他用溫暖的信任點燃了我心中的微光，讓我敢於向遙不可及的慶應大學許下誓言。\n我剪去長髮，褪去繁華，在無數個孤燈相伴的深夜裡，將淚水與汗水揉進泛黃的題本中。縱使在大考前夕遭遇模擬考重挫跌入谷底、幾乎被焦慮淹沒，媽媽無條件的擁抱與老師「有志者事竟成」的信仰，依然是我最堅實的後盾。\n放榜那天，奇蹟降臨，慶應大學的錄取通知劃破了長夜！當初打賭我絕不可能考上的班導師，甘服敗北兌現承諾。坐在駛向夢想未來的列車上，隔著車窗玻璃，看見坪田老師在月台上興高採烈地奮力跳躍揮手加油，那一刻照亮了我所有耀眼的逆襲歲月。",
-        prompt_en: "Based on the person in the attached reference photo, create a cinematic photorealistic portrait of the student sitting inside a bullet train window, looking outside emotionally as an inspiring male tutor jumps joyfully on the platform cheering under golden hour lighting, 8k, shallow depth of field.",
-        prompt_zh: "(寫實照片風格。請參考上傳照片中人物的外貌特徵：夕陽光影下，學生坐在高鐵車窗旁凝視窗外，補習班坪田老師在月台上興高採烈奮力跳躍揮手加油。)",
-        steps: [
-          { id: 1, e: "立下考上慶應義塾大學與目標志願的誓言。", f: "熱血期待，心中充滿 Prove 自己的決心。", s: "3" },
-          { id: 2, e: "高中成績墊底、偏差值僅 30，遭班導師冷眼嘲笑不看好。", f: "沮喪自卑，深刻體會被看輕的挫折。", s: "-2" },
-          { id: 3, e: "剪短長髮戒掉手遊社交，天天在補習班苦讀刷題至深夜。", f: "踏實專注，全力以赴學習。", s: "1" },
-          { id: 4, e: "經過半年苦讀，模擬考成績大幅進步衝到前段班！", f: "振奮狂喜，重新建立信心。", s: "2" },
-          { id: 5, e: "大考前夕模擬考重挫跌回 E 判定谷底，壓力過大身心交瘁。", f: "絕望崩潰，懷疑所有努力皆是徒勞。", s: "-3" },
-          { id: 6, e: "媽媽溫暖陪伴與坪田老師信件鼓勵，重新找回沉著自信。", f: "獲得力量，找回平靜沉著。", s: "1" },
-          { id: 7, e: "放榜喜獲慶應錄取！搭車時看見坪田老師在月台上跳躍加油。", f: "感動落淚，充滿狂喜與自我肯定。", s: "3" }
-        ]
-      },
-      "恐怖與驚悚": {
-        title: "《怪物牢籠：午夜古堡逃生錄》",
-        story: "為了尋找失蹤的同伴，我獨自闖入廢棄的精神病院古堡。走廊燈光驟然熄滅，身後傳來鎖鏈拖行與異形怪物低沉咆哮聲，窒息的恐懼瞬間籠罩全身上下。\n我屏住呼吸躲在生鏽鐵櫃中，利用手電筒觀察怪物的巡邏規律，終於拿到鑰匙卡並衝向逃生門。然而門鎖早已壞死，怪物咆哮破牆衝來，將我逼入絕境死角！\n在命懸一線之際，我果斷砸開高壓滅火器觸發電擊暫時癱瘓怪物，奮力撞開大門奔向晨曦森林。當陽光灑在臉上那一刻，我劫後餘生般痛快哭泣。",
-        prompt_en: "Based on the person in the attached reference photo, create a cinematic horror movie scene of a terrified survivor bursting through heavy wooden castle doors into morning sunlight, dark spooky asylum in background.",
-        prompt_zh: "(恐怖電影風格：驚恐的倖存者撞開古堡重門奔向晨曦陽光，背景為陰森廢棄的精神病院。)",
-        steps: [
-          { id: 1, e: "在廢棄精神病院驚悚「怪物牢籠」中尋找出口順利逃生。", f: "恐懼顫抖，誓言活著離開。", s: "3" },
-          { id: 2, e: "走廊燈光熄滅，身後傳來鎖鏈拖行與異形怪物低沉咆哮。", f: "極度驚恐，心跳加速至極限。", s: "-2" },
-          { id: 3, e: "屏住呼吸躲在鐵櫃中，利用手電筒觀察怪物巡邏規律。", f: "顫抖專注，強壓內心恐懼。", s: "1" },
-          { id: 4, e: "成功拿到院長室的緊急逃生門磁卡！", f: "看見一線生機，奮力奔跑。", s: "2" },
-          { id: 5, e: "逃生門密碼鎖遭破壞，怪物破牆而出鎖定目標咆哮衝來。", f: "絕望崩潰，感受死亡逼近。", s: "-3" },
-          { id: 6, e: "砸開高壓滅火器觸發高壓電擊，暫時癱瘓怪物腿部。", f: "絕境求生，爆發極限潛能。", s: "1" },
-          { id: 7, e: "撞開大門奔向晨曦森林，背後廢棄古堡歸於平靜！", f: "劫後餘生，放聲大哭慶幸。", s: "3" }
-        ]
-      },
-      "奇幻與科幻": {
-        title: "《星域符文：破滅與曙光》",
-        story: "為了拯救即將衰亡的母星，我駕駛探測船降落於星系邊緣的古代魔法遺跡。然而古老守護者釋放出高階黑魔法與反重力能量罩，阻斷了一切深入的可能。\n我結合現代微晶片與古代詠唱咒語進行共振突破，終於讓符文釋放出璀璨藍光。不料遺跡核心突發自爆機制，撕裂空間的反物質能量幾乎將一切吞噬！\n關鍵時刻，我果斷將殘存能量注入符文傳送陣，成功穿越時空傳送門。當船隻安全降落於新世界，手中聖物散發著拯救文明的光芒。",
-        prompt_en: "Based on the person in the attached reference photo, create a photorealistic sci-fi cinematic scene of an explorer holding a glowing blue rune crystal in an ancient alien temple with glowing energy portals.",
-        prompt_zh: "(科幻電影風格：探險家在古老外星神殿中高舉發光的藍色符文水晶，背景為旋轉的能量傳送門。)",
-        steps: [
-          { id: 1, e: "前往星系邊緣的魔法遺跡解開失落的元素符文法則。", f: "震撼好奇，充滿探索壯志。", s: "3" },
-          { id: 2, e: "古老守護者釋放高階黑魔法與反重力能量防護罩阻擋。", f: "受挫驚恐，陷入困局。", s: "-2" },
-          { id: 3, e: "結合現代科技微晶片與古代詠唱咒語進行共振突破。", f: "專注冷靜，奮力嘗試。", s: "1" },
-          { id: 4, e: "防護罩破裂，符文成功解開並釋放出熾熱藍光！", f: "備受鼓舞，看見希望。", s: "2" },
-          { id: 5, e: "遺跡核心突觸發自爆機制，反物質能量迅速過載撕裂空間。", f: "絕望萬分，生死一瞬。", s: "-3" },
-          { id: 6, e: "發現符文暗藏的時空傳送門，果斷引導能量注入傳送陣。", f: "絕境反擊，臨危不亂。", s: "1" },
-          { id: 7, e: "安全降落新世界，手中聖物散發著拯救文明的光芒！", f: "狂喜激動，浩瀚壯舉成就。", s: "3" }
-        ]
-      },
-      "喜劇與幽默": {
-        title: "《極道家政王：黑道大哥的圍裙逆襲》",
-        story: "堂堂黑道大哥因為賭局輸了，必須挑戰擔任全職家政夫一天！穿上粉紅圍裙配墨鏡打掃時，竟遇到了會咬人且超頑固的廚房油污，甚至還被路過的小學生指指點點嘲笑。\n我拿出幫派殺氣，用超細刷子與高壓蒸氣槍對油污開戰，終於讓廚房閃閃發光！沒想到烤蛋糕時失手把地獄辣椒粉當成可可粉，瞬間變成了暗黑料理。\n我臨危不亂將它改造成「黑道魂特調辣味麻糬」，沒想到鄰居太太們瘋狂排隊搶購，讓我一舉成為社區最強的明星家政王！",
-        prompt_en: "Based on the person in the attached reference photo, create a humorous funny movie scene of a tough gangster wearing a pink apron and sunglasses in a sparkling clean kitchen holding a giant spatula.",
-        prompt_zh: "(喜劇風格：面相凶狠的黑道大哥戴著墨鏡、穿著粉紅圍裙在閃閃發光的廚房裡拿著鍋鏟。)",
-        steps: [
-          { id: 1, e: "凶狠黑道大哥因為賭局輸了，必須挑戰擔任全職家政夫一天。", f: "滿臉不爽但充滿極度自信。", s: "3" },
-          { id: 2, e: "遇到超頑固油污，用圍裙配墨鏡打掃被小學生嘲笑。", f: "崩潰尷尬，極度傻眼。", s: "-2" },
-          { id: 3, e: "拿出殺氣用超細小刷子與高壓蒸氣槍對油污開戰。", f: "殺氣騰騰，認真打掃。", s: "1" },
-          { id: 4, e: "廚房被清潔得閃閃發光，宛如五星級新飯店！", f: "成就感爆棚，爽快無比。", s: "2" },
-          { id: 5, e: "準備烤蛋糕時誤把地獄特級辣椒粉當成可可粉撒滿蛋糕。", f: "傻眼絕望，表情徹底失控。", s: "-3" },
-          { id: 6, e: "臨危不亂將辣味蛋糕改造成爆款「黑道魂暗黑特調辣味麻糬」。", f: "展現創意，反敗為勝。", s: "1" },
-          { id: 7, e: "鄰居太太們瘋狂排隊搶購，黑道大哥成為社區最強明星家政王！", f: "搞笑歡樂，全場爆笑好評。", s: "3" }
-        ]
-      },
-      "推理與懸疑": {
-        title: "《雙重密室：古堡懸案破曉之時》",
-        story: "為了洗清被害者的冤屈，我接下了這宗看似不可能破解的古堡密室失蹤案。現場所有痕跡皆被精心毀滅，嫌疑人更擁有無懈可擊的不在場證明。\n我用放大鏡勘驗牆上油畫的積塵與微小光影差異，終在機關內發現關鍵的隱形墨水密信！但在開庭前夕，關鍵證人卻突然遭神秘黑影襲擊重傷昏迷。\n我在懷錶機芯內找到了兇手的特徵指紋，並破解了雙重心理陷阱。在警局大廳我當眾拆穿真兇面具，密室真相大白，正義終得伸張。",
-        prompt_en: "Based on the person in the attached reference photo, create a cinematic detective film scene of a sharp detective holding a magnifying glass inspecting a secret compartment in a vintage dark library.",
-        prompt_zh: "(推理電影風格：敏銳的偵探在古典暗色圖書館中持放大鏡勘驗牆壁暗格。)",
-        steps: [
-          { id: 1, e: "偵破古堡連環密室失蹤案，為被害者洗清冤屈並還原真相。", f: "冷靜敏銳，尋求正義。", s: "3" },
-          { id: 2, e: "現場證據遭毀滅，嫌疑人皆擁有完美的不在場證明。", f: "陷入僵局，毫無頭緒。", s: "-2" },
-          { id: 3, e: "用放大鏡重新勘驗現場積塵與牆上油畫的微小光影差異。", f: "細心嚴謹，不放過蛛絲馬跡。", s: "1" },
-          { id: 4, e: "發現暗門機制與一封藏在機關內的關鍵隱形墨水密信！", f: "眼前一亮，破解第一重謎團。", s: "2" },
-          { id: 5, e: "關鍵證人在開庭前夕遭神秘黑影襲擊昏迷，線索中斷。", f: "挫敗沉痛，感覺對手陰險。", s: "-3" },
-          { id: 6, e: "在懷錶機芯內找到真正的兇手指紋與雙重密室心理陷阱設計。", f: "自信反擊，鎖定真兇。", s: "1" },
-          { id: 7, e: "警局大廳公開拆穿真兇面具，密室真相大白，正義得到伸張！", f: "充滿成就感，榮耀落幕。", s: "3" }
-        ]
-      },
-      "浪漫與愛情": {
-        title: "《月光下的約定：跨越時空的相擁》",
-        story: "在大學畢業前夕，我鼓起勇氣向暗戀三年的學姐坦承心意。然而她收到了出國深造的 Offer，因害怕遠距離愛情的無奈而暫時封閉了心扉。\n我選擇不給她負擔，親手製作了一本紀錄三年共同回憶的相冊。學姐在機場被這份深情打動，我們許下了三年後在東京塔重逢的約定。\n約定當天突降狂風暴雨導致航班延誤，手機通訊全斷。我憑著記憶頂著風雪奔向塔下，發現一個熟悉的身影正撐著傘等候。漫天雪花下我們深深相擁，跨越時間終成眷屬。",
-        prompt_en: "Based on the person in the attached reference photo, create a romantic movie scene of two lovers embracing under an umbrella in snowy night with Tokyo Tower glowing in background.",
-        prompt_zh: "(浪漫電影風格：下雪的夜晚，兩位戀人在東京塔璀璨霓虹背景下撐傘深深相擁。)",
-        steps: [
-          { id: 1, e: "在大學畢業前夕，向暗戀三年的社團學姐勇敢告白。", f: "心跳加速，既緊張又期待。", s: "3" },
-          { id: 2, e: "學姐收到出國深造 Offer，決定暫時封閉心扉不敢承諾。", f: "心碎沮喪，感到現實無奈。", s: "-2" },
-          { id: 3, e: "不給她壓力，親手製作一本記載三年共同回憶的相冊與祝福信。", f: "溫柔堅定，默默守護。", s: "1" },
-          { id: 4, e: "學姐在機場被相冊深情打動，許下三年後東京塔重逢約定。", f: "滿懷希望，願意為愛等待。", s: "2" },
-          { id: 5, e: "約定之日突逢大雪航班延誤，手機訊號中斷無法聯繫。", f: "焦慮萬分，害怕擦身而過。", s: "-3" },
-          { id: 6, e: "頂著風雪奔向東京塔下，發現熟悉的身影正撐傘等候。", f: "眼眶紅潤，內心湧現感動。", s: "1" },
-          { id: 7, e: "在漫天雪花與東京塔霓虹下深深相擁，跨越距離終成眷屬！", f: "狂喜幸福，永遠珍藏這一刻。", s: "3" }
-        ]
-      },
-      "冒險與尋寶": {
-        title: "《太陽神面具：迷霧瀑布探險記》",
-        story: "為了尋找消失百年的阿茲特克黃金面具，我獨自踏入危險重重的迷霧森林。不料踏入沼澤區突遭巨蟒包圍，指南針與地圖更落入泥流失落。\n我靠著星宿辨識方位並製作防蛇薰香，終於穿過沼澤，發現了隱藏在瀑布後方的黃金神廟！然而取下面具時觸發了流沙 Trap，神廟開始劇烈崩塌。\n我運用探險繩索抓住石柱飛躍，順著瀑布水流躍入深潭死裡逃生。當我高舉黃金面具站在陽光下，那一刻我成為了歷史上記錄的傳奇探險家。",
-        prompt_en: "Based on the person in the attached reference photo, create a photorealistic adventure movie scene of an explorer emerging from a waterfall cave holding a golden ancient sun mask into bright jungle sunlight.",
-        prompt_zh: "(冒險電影風格：探險家從瀑布水簾洞中走出，高舉金光閃閃的太陽神面具站在熱帶叢林陽光下。)",
-        steps: [
-          { id: 1, e: "深入迷霧森林尋找消失百年的太陽神阿茲特克黃金面具。", f: "勇敢熱血，準備踏上旅程。", s: "3" },
-          { id: 2, e: "踏入沼澤區突遭巨型沼澤蟒蛇包圍，地圖與指南針掉入泥流。", f: "驚恐焦慮，失去方向。", s: "-2" },
-          { id: 3, e: "靠星宿位置辨識方位，並利用周遭植物製作防蛇薰香。", f: "堅韌踏實，不屈不撓。", s: "1" },
-          { id: 4, e: "穿過沼澤，成功發現隱藏在瀑布後方的黃金神廟入口！", f: "振奮狂喜，曙光乍現。", s: "2" },
-          { id: 5, e: "取走面具時觸發地底流沙 traps，神廟頂部開始坍塌崩落。", f: "命懸一線，極度絕望。", s: "-3" },
-          { id: 6, e: "運用探險繩索抓住石柱飛躍，順著瀑布水流躍入深潭。", f: "死裡逃生，展現極限勇氣。", s: "1" },
-          { id: 7, e: "高舉黃金面具站在陽光下，完成歷史性偉大探險冒險！", f: "歡呼狂喜，成為傳奇探險家。", s: "3" }
-        ]
-      }
+      "3": "#059669",  // +3 狂喜 (深綠)
+      "2": "#10b981",  // +2 期待 (綠)
+      "1": "#34d399",  // +1 希望 (淺綠)
+      "0": "#9ca3af",  //  0 平靜 (灰)
+      "-1": "#f87171", // -1 不安 (淺紅)
+      "-2": "#ef4444", // -2 沮喪 (紅)
+      "-3": "#dc2626"  // -3 崩潰 (深紅)
     };
 
     function renderCards() {
@@ -312,8 +181,9 @@
         <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm">
           <div class="flex items-center justify-between mb-3">
             <h3 class="font-bold text-slate-800 text-sm md:text-base">${s.name}</h3>
-            ${s.isReq ? '<span class="text-[11px] bg-blue-100 text-blue-600 px-2 py-0.5 rounded font-bold">必填輸入</span>' : '<span class="text-[11px] bg-amber-100 text-amber-600 px-2 py-0.5 rounded font-bold">可填/AI推演</span>'}
+            ${s.isReq ? '<span class="text-[11px] bg-blue-100 text-blue-600 px-2 py-0.5 rounded">必填輸入</span>' : '<span class="text-[11px] bg-amber-100 text-amber-600 px-2 py-0.5 rounded">可填/AI推演</span>'}
           </div>
+
           <div class="space-y-3">
             <textarea id="event_${s.id}" rows="2" placeholder="${s.pE}" class="w-full p-3 text-xs bg-slate-50/50 rounded-xl border border-slate-200 focus:outline-none focus:border-blue-500 resize-none custom-scrollbar"></textarea>
             <div class="flex gap-2">
@@ -327,31 +197,46 @@
       `).join('');
     }
 
-    function changeGenre(btnEl, genreName) {
-      document.querySelectorAll('.genre-btn').forEach(b => b.classList.remove('genre-btn-active'));
-      btnEl.classList.add('genre-btn-active');
-      currentGenre = genreName;
-      document.getElementById('presetBtnText').innerText = `📙 載入【${currentGenre}】完整範例`;
-    }
+    // 📙 一鍵載入「墊底辣妹」範例
+    function loadBiriGyalPreset() {
+      const presetData = [
+        { id: 1, e: "在補習班坪田老師建議下，立下考上慶應義塾大學的目標。", f: "熱血期待，心中充滿證明自己的決心與對未來的憧憬。", s: "3" },
+        { id: 2, e: "高中成績墊底、偏差值僅 30，被班導師嘲笑完全不被看好。", f: "沮喪自卑，深刻體會到被外界看輕的挫折與不甘心。", s: "-2" },
+        { id: 3, e: "剪短長髮、戒掉手遊與社交，每天在補習班苦讀至深夜。", f: "踏實專注，全力以赴學習。", s: "1" },
+        { id: 4, e: "經過半年苦讀，模擬考成績大幅進步衝到前段班！", f: "振奮狂喜，重新建立起信心。", s: "2" },
+        { id: 5, e: "大考前夕模擬考重挫跌回 E 判定谷底，加上壓力過大身體不適。", f: "崩潰絕望，懷疑所有努力都是徒勞。", s: "-3" },
+        { id: 6, e: "媽媽溫暖陪伴與坪田老師信件鼓勵「有志者事竟成」，重新調整心態。", f: "獲得力量，找回平靜沉著與自信。", s: "1" },
+        { id: 7, e: "放榜喜獲慶應錄取通知！班導師全裸兌現承諾，搭高鐵時看見坪田老師在月台上跳躍加油。", f: "感動落淚，充滿狂喜與自我肯定。", s: "3" }
+      ];
 
-    function loadSelectedGenrePreset() {
-      const preset = fullPresets[currentGenre] || fullPresets["現實與劇情"];
-      preset.steps.forEach(item => {
+      presetData.forEach(item => {
         document.getElementById(`event_${item.id}`).value = item.e;
         document.getElementById(`feeling_${item.id}`).value = item.f;
         document.getElementById(`scale_${item.id}`).value = item.s;
       });
-      document.getElementById('storyTitle').innerText = preset.title;
-      document.getElementById('fullStoryText').innerText = preset.story;
-      document.getElementById('promptText').innerText = preset.prompt_en;
-      document.getElementById('promptTranslation').innerText = preset.prompt_zh;
-      
+
+      document.getElementById('storyTitle').innerText = "《逆光飛翔的奇蹟：彩加的青春逆襲》";
+      document.getElementById('fullStoryText').innerText = 
+`曾經，我是個偏差值只有 30、連地理都搞不懂的「問題學生」。班導師冷眼與嘲諷，像是一道死寂的牆，將我困在自卑的陰影深處。直到遇見坪田老師，他用溫暖的信任點燃了我心中的微光，讓我敢於向遙不可及的慶應大學許下誓言。
+
+我剪去長髮，褪去繁華，在無數個孤燈相伴的深夜裡，將淚水與汗水揉進泛黃的題本中。縱使在大考前夕遭遇模擬考重挫跌入谷底、幾乎被焦慮淹沒，媽媽無條件的擁抱與老師「有志者事竟成」的信仰，依然是我最堅實的後盾。
+
+放榜那天，奇蹟降臨，慶應大學的錄取通知劃破了長夜！當初打賭我絕不可能考上的班導師，甘服敗北、赤裸著身體兌現承諾，在那看似荒誕的畫面背後，是對一個生命翻轉命運最高傲的敬意與震撼。
+
+而最令我動容並深深刻在靈魂裡的，是坐在駛向夢想未來的列車上，隔著車窗玻璃，看見坪田老師在月台上興高采烈地奮力跳躍、像個孩子般揮手為我加油的畫面。那一刻，光影在他躍起的身影旁綻放，照亮了我所有曾經艱辛、最終耀眼的逆襲歲月。`;
+
+      document.getElementById('promptText').innerText = 
+        "Based on the person in the attached reference photo, create a cinematic photorealistic portrait of the student sitting inside a bullet train window, looking outside emotionally as an inspiring male tutor jumps joyfully on the platform cheering under golden hour lighting, 8k, shallow depth of field.";
+      document.getElementById('promptTranslation').innerText = 
+        "(寫實照片風格。請參考上傳照片中人物的外貌特徵：夕陽光影下，學生坐在高鐵車窗旁凝視窗外，補習班坪田老師在月台上興高采烈奮力跳躍揮手加油。電影級質感，8K 高畫質。)";
+
       renderRainbowGrid();
       document.getElementById('attachmentSection').classList.remove('hidden');
       document.getElementById('attachmentSection').scrollIntoView({ behavior: 'smooth' });
     }
 
     async function triggerBackendAIGeneration() {
+      // 打包收集 1~7 步驟的所有資料
       const e1 = document.getElementById('event_1').value.trim();
       const e2 = document.getElementById('event_2').value.trim();
       const e3 = document.getElementById('event_3').value.trim();
@@ -368,20 +253,20 @@
       const btn = document.getElementById('aiBtn');
       const btnText = document.getElementById('aiBtnText');
       btn.disabled = true;
-      btnText.innerText = `🤖 AI 正在推演【${currentGenre}】故事中...`;
+      btnText.innerText = "🤖 後端 Gemini 正在優化與推演中...";
 
       try {
         const response = await fetch(GAS_API_URL, {
           method: 'POST',
           headers: { 'Content-Type': 'text/plain;charset=utf-8' },
           body: JSON.stringify({ 
-            genre: currentGenre,
             step1: e1, step2: e2, step3: e3,
             step4: e4, step5: e5, step6: e6, step7: e7
           })
         });
 
         const data = await response.json();
+
         if (!data.success) {
           throw new Error(data.error || "後端 API 未回傳成功狀態");
         }
@@ -404,10 +289,11 @@
         renderRainbowGrid();
         document.getElementById('attachmentSection').classList.remove('hidden');
         document.getElementById('attachmentSection').scrollIntoView({ behavior: 'smooth' });
-        alert(`✨ AI 成功為您推演【${currentGenre}】故事全文！`);
+
+        alert("✨ 後端 Gemini AI 推演成功！已更新 1~7 步驟、故事全文與繪圖提示詞。");
 
       } catch (err) {
-        alert("❌ 生成失敗：\n" + err.message + "\n\n💡 請確認 Apps Script 是否已重新發布為『所有人』可存取的新版本！");
+        alert("❌ 生成失敗：\n" + err.message);
       } finally {
         btn.disabled = false;
         btnText.innerText = "✨ AI 智慧推演與生成全文";
@@ -423,11 +309,12 @@
         const e = document.getElementById(`event_${i}`).value;
         const f = document.getElementById(`feeling_${i}`).value;
         const s = document.getElementById(`scale_${i}`).value;
+
         const tr = document.createElement('tr');
         tr.innerHTML = `
           <td class="p-3 font-bold border-r border-slate-200">${stepsData[i-1].name.split(' ')[1]}</td>
-          <td class="p-3 border-r border-slate-200">${escapeHtml(e)}</td>
-          <td class="p-3 border-r border-slate-200">${escapeHtml(f)}</td>
+          <td class="p-3 border-r border-slate-200">${e}</td>
+          <td class="p-3 border-r border-slate-200">${f}</td>
           ${scales.map(sc => {
             const isSelected = (sc === s);
             const bgStyle = isSelected ? `background-color: ${emotionColorMap[sc]}; color: white;` : '';
@@ -442,21 +329,21 @@
       }
     }
 
-    function escapeHtml(str) { return str ? String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;') : ''; }
-
     function openGoogleSheetsWindow() {
       const sheetsWindow = window.open('', '_blank');
       let rowsHTML = '';
       const scales = ["3", "2", "1", "0", "-1", "-2", "-3"];
+
       for (let i = 1; i <= 7; i++) {
         const e = document.getElementById(`event_${i}`).value;
         const f = document.getElementById(`feeling_${i}`).value;
         const s = document.getElementById(`scale_${i}`).value;
+
         rowsHTML += `
           <tr>
             <td style="padding:10px; border:1px solid #cbd5e1; font-weight:bold; background-color:#f1f5f9; color:#0f172a;">${stepsData[i-1].name}</td>
-            <td contenteditable="true" style="padding:10px; border:1px solid #cbd5e1; background-color:#ffffff; color:#334155;">${escapeHtml(e)}</td>
-            <td contenteditable="true" style="padding:10px; border:1px solid #cbd5e1; background-color:#ffffff; color:#334155;">${escapeHtml(f)}</td>
+            <td contenteditable="true" style="padding:10px; border:1px solid #cbd5e1; background-color:#ffffff; color:#334155;">${e}</td>
+            <td contenteditable="true" style="padding:10px; border:1px solid #cbd5e1; background-color:#ffffff; color:#334155;">${f}</td>
             ${scales.map(sc => {
               const isSelected = (sc === s);
               const bgColor = isSelected ? emotionColorMap[sc] : '#ffffff';
@@ -470,35 +357,37 @@
           </tr>
         `;
       }
+
       sheetsWindow.document.write(`
         <!DOCTYPE html>
         <html>
         <head>
-          <title>Google 試算表編輯版 - 故事學習單</title>
+          <title>Google 試算表編輯版 - 我的升學故事學習單</title>
           <style>
             body { font-family: system-ui, -apple-system, sans-serif; margin: 20px; background-color: #f8fafc; }
             .header { background-color: #0f766e; color: white; padding: 15px; font-size: 16px; font-weight: bold; border-radius: 8px 8px 0 0; display:flex; justify-content:space-between; align-items:center; }
             .btn-group { display: flex; gap: 8px; }
-            .btn { background: #ffffff; color: #0f766e; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 13px; }
+            .btn { background: #ffffff; color: #0f766e; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 13px; shadow: 0 1px 2px rgba(0,0,0,0.1); }
             .btn-green { background: #10b981; color: white; }
             table { width: 100%; border-collapse: collapse; background-color: white; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
             th { padding: 10px; border: 1px solid #065f46; font-size: 12px; font-weight: bold; }
             td { font-size: 13px; text-align: left; }
+            [contenteditable="true"]:focus { outline: 2px solid #10b981; background-color: #f0fdf4 !important; }
             .tip { background: #e0f2fe; border: 1px solid #bae6fd; color: #0369a1; padding: 12px; border-radius: 8px; margin-bottom: 14px; font-size: 13px; line-height: 1.6; }
           </style>
         </head>
         <body>
           <div class="header">
-            <span>📊 靶心人故事學習單 - 彩色 Google 試算表產出頁</span>
+            <span>📊 我的升學故事學習單 - 彩色 Google 試算表產出頁</span>
             <div class="btn-group">
               <button class="btn btn-green" onclick="copyRichTable()">📋 複製帶顏色表格 (貼上至 Google 試算表)</button>
-              <button class="btn" onclick="window.open('[https://sheet.new](https://sheet.new)', '_blank')">➕ 開啟 Google 試算表 (sheet.new)</button>
+              <button class="btn" onclick="window.open('https://sheet.new', '_blank')">➕ 開啟 Google 試算表 (sheet.new)</button>
             </div>
           </div>
           <div class="tip">
             💡 <b>操作說明：</b><br>
             1. 點擊「<b>📋 複製帶顏色表格</b>」，系統會自動將整張表格與<b>所有彩虹底色</b>複製入剪貼簿。<br>
-            2. 點擊「<b>➕ 開啟 Google 試算表</b>」，在 A1 格子直接按下 <b>Ctrl + V</b> 貼上即可！
+            2. 點擊「<b>➕ 開啟 Google 試算表</b>」，在 A1 格子直接按下 <b>Ctrl + V</b>，即可完美帶入所有邊框與全彩背景顏色！
           </div>
           <table id="rainbowTable">
             <thead>
@@ -512,11 +401,14 @@
                 <th style="background-color:#9ca3af; color:#ffffff; text-align:center; border:1px solid #065f46;">'0 平靜</th>
                 <th style="background-color:#f87171; color:#ffffff; text-align:center; border:1px solid #065f46;">'-1 不安</th>
                 <th style="background-color:#ef4444; color:#ffffff; text-align:center; border:1px solid #065f46;">'-2 沮喪</th>
-                <th style="background-color:#dc2626; color:#ffffff; text-align:center; border:1px solid #065f46;">'-3 絕望</th>
+                <th style="background-color:#dc2626; color:#ffffff; text-align:center; border:1px solid #065f46;">'-3 崩潰</th>
               </tr>
             </thead>
-            <tbody>${rowsHTML}</tbody>
+            <tbody>
+              ${rowsHTML}
+            </tbody>
           </table>
+
           <script>
             function copyRichTable() {
               const table = document.getElementById('rainbowTable');
@@ -525,12 +417,17 @@
               const selection = window.getSelection();
               selection.removeAllRanges();
               selection.addRange(range);
+              
               try {
                 const successful = document.execCommand('copy');
                 selection.removeAllRanges();
-                if(successful) alert('✅ 帶顏色的全彩表格已成功複製！請在 Google 試算表 A1 貼上。');
+                if(successful) {
+                  alert('✅ 帶顏色的全彩表格已成功複製！\\n\\n請點擊「➕ 開啟 Google 試算表」，在儲存格 A1 按下 Ctrl + V 即可完美還原包含所有底色的表格！');
+                } else {
+                  throw new Error('Copy command failed');
+                }
               } catch (err) {
-                alert('❌ 複製失敗，請手動全選表格後複製。');
+                alert('❌ 複製失敗，請直接手動全選下方表格後按下 Ctrl + C 複製。');
               }
             }
           <\/script>
@@ -544,26 +441,34 @@
       const printWin = window.open('', '_blank');
       let rowsHTML = '';
       const scales = ["3", "2", "1", "0", "-1", "-2", "-3"];
+
       for (let i = 1; i <= 7; i++) {
         const e = document.getElementById(`event_${i}`).value;
         const f = document.getElementById(`feeling_${i}`).value;
         const s = document.getElementById(`scale_${i}`).value;
+
         rowsHTML += `
           <tr>
             <td style="padding:8px; border:1px solid #ccc; font-weight:bold;">${stepsData[i-1].name}</td>
-            <td style="padding:8px; border:1px solid #ccc;">${escapeHtml(e)}</td>
-            <td style="padding:8px; border:1px solid #ccc;">${escapeHtml(f)}</td>
+            <td style="padding:8px; border:1px solid #ccc;">${e}</td>
+            <td style="padding:8px; border:1px solid #ccc;">${f}</td>
             ${scales.map(sc => {
               const isSelected = (sc === s);
               const bgColor = isSelected ? emotionColorMap[sc] : '#ffffff';
               const textColor = isSelected ? '#ffffff' : '#000000';
-              return `<td style="padding:8px; border:1px solid #ccc; text-align:center; font-weight:bold; background-color:${bgColor}; color:${textColor};">${isSelected ? '✓' : ''}</td>`;
+              return `
+                <td style="padding:8px; border:1px solid #ccc; text-align:center; font-weight:bold; background-color:${bgColor}; color:${textColor};">
+                  ${isSelected ? '✓' : ''}
+                </td>
+              `;
             }).join('')}
           </tr>
         `;
       }
+
       const titleText = document.getElementById('storyTitle').innerText;
       const fullText = document.getElementById('fullStoryText').innerText;
+
       printWin.document.write(`
         <!DOCTYPE html>
         <html>
@@ -577,26 +482,35 @@
             @media print { .btn-print { display: none; } }
             table { width: 100%; border-collapse: collapse; margin-bottom: 24px; font-size: 12px; }
             th { background-color: #0369a1; color: white; padding: 8px; border: 1px solid #0284c7; }
-            .story-box { background: #f8fafc; border: 1px solid #cbd5e1; padding: 16px; border-radius: 8px; font-size: 13px; line-height: 1.8; white-space: pre-line; }
+            .story-box { background: #f8fafc; border: 1px solid #cbd5e1; padding: 16px; border-radius: 8px; font-size: 13px; line-height: 1.8; whitespace-pre-line; }
           </style>
         </head>
         <body>
           <div class="header">
-            <h1>🎯 靶心人公式 - 全能故事 AI 學習單</h1>
+            <h1>🎯 靶心人公式 - 我的會考逆襲故事學習單</h1>
             <button class="btn-print" onclick="window.print()">🖨️ 列印 / 另存為 PDF</button>
           </div>
+
           <h2 style="font-size:15px; margin-bottom:10px;">📊 一、彩虹情緒試算表</h2>
           <table>
             <thead>
               <tr>
-                <th style="width:110px;">步驟</th><th>關鍵事件</th><th>內心感受</th>
-                <th style="background:#059669;">+3 狂喜</th><th style="background:#10b981;">+2 期待</th><th style="background:#34d399;">+1 希望</th>
-                <th style="background:#6b7280;">0 平靜</th><th style="background:#f87171;">-1 不安</th><th style="background:#ef4444;">-2 沮喪</th><th style="background:#dc2626;">-3 絕望</th>
+                <th style="width:110px;">步驟</th>
+                <th>關鍵事件</th>
+                <th>內心感受</th>
+                <th style="background:#059669;">+3 狂喜</th>
+                <th style="background:#10b981;">+2 期待</th>
+                <th style="background:#34d399;">+1 希望</th>
+                <th style="background:#6b7280;">0 平靜</th>
+                <th style="background:#f87171;">-1 不安</th>
+                <th style="background:#ef4444;">-2 沮喪</th>
+                <th style="background:#dc2626;">-3 崩潰</th>
               </tr>
             </thead>
             <tbody>${rowsHTML}</tbody>
           </table>
-          <h2 style="font-size:15px; margin-bottom:10px;">📖 二、故事全文自述</h2>
+
+          <h2 style="font-size:15px; margin-bottom:10px;">📖 二、升學逆襲故事全文自述</h2>
           <div class="story-box">
             <strong style="font-size:14px; color:#0f172a;">${titleText}</strong><br><br>
             ${fullText}
